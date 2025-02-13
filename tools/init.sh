@@ -11,6 +11,10 @@ ACTIONS_WORKFLOW=pages-deploy.yml
 
 RELEASE_HASH=$(git log --grep="chore(release):" -1 --pretty="%H")
 
+# 기본값 설정 (RELEASE_HASH가 비어 있으면 HEAD로 설정)
+if [[ -z "$RELEASE_HASH" ]]; then
+  RELEASE_HASH="HEAD"
+fi
 # temporary file suffixes that make `sed -i` compatible with BSD and Linux
 TEMP_SUFFIX="to-delete"
 
