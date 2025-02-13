@@ -52,6 +52,12 @@ _check_status() {
 }
 
 _check_init() {
+  if [[ $(git rev-list --count HEAD) -eq 1 ]]; then
+    # 커밋이 하나뿐이면 초기화된 것으로 간주하고 스킵
+    echo "Only one commit exists. Skipping initialization check."
+    return
+  fi
+
   if [[ $(git rev-parse HEAD^1) == "$RELEASE_HASH" ]]; then
     echo "Already initialized."
     exit 0
