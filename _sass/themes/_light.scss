@@ -1,8 +1,8 @@
 @mixin styles {
   /* Framework color */
-  --main-bg: white;
-  --mask-bg: #c1c3c5;
-  --main-border-color: #f3f3f3;
+  --main-bg: rgb(244, 246, 244);
+  --mask-bg: rgb(180, 184, 182);
+  --main-border-color: rgb(200, 222, 200);
 
   /* Common color */
   --text-color: #34343c;
@@ -12,43 +12,52 @@
   --label-color: #585858;
   --blockquote-border-color: #eeeeee;
   --blockquote-text-color: #757575;
-  --link-color: #0056b2;
-  --link-underline-color: #dee2e6;
-  --button-bg: #ffffff;
-  --btn-border-color: #e9ecef;
-  --btn-backtotop-color: #686868;
-  --btn-backtotop-border-color: #f1f1f1;
-  --checkbox-color: #c5c5c5;
-  --checkbox-checked-color: #07a8f7;
+
+  --link-color: #0056b2;             /* 강조 링크 – 회녹 톤, 기존 파랑 대신 */
+  --link-underline-color: rgb(210, 220, 210);  /* 링크 밑줄 – 은은한 연회녹 */
+
+  /* 버튼 */
+  --button-bg: #ffffff;                        /* 버튼 배경은 유지 (깔끔함) */
+  --btn-border-color: rgb(210, 220, 210);      /* 연회녹 테두리 – 카드/테이블과 통일감 */
+  --btn-backtotop-color: rgb(85, 110, 85);     /* 연한 진회녹 텍스트 – 강조되지만 튀지 않음 */
+  --btn-backtotop-border-color: rgb(225, 230, 225); /* 백투탑 경계선 – 흐린 회녹 */
+
+  /* 체크박스 */
+  --checkbox-color: rgb(190, 200, 190);        /* 비활성 회녹 회색 */
+  --checkbox-checked-color: rgb(85, 130, 110); /* 체크 시 강조 색상 – 링크와 통일 */
+
+  /* 이미지 배경 (로딩 전 or 누끼용) */
   --img-bg: radial-gradient(
     circle,
     rgb(255, 255, 255) 0%,
-    rgb(239, 239, 239) 100%
+    rgb(238, 240, 238) 100%
   );
+
+  /* shimmer 효과 – 로딩 시keleton */
   --shimmer-bg: linear-gradient(
     90deg,
-    rgba(250, 250, 250, 0) 0%,
-    rgba(232, 230, 230, 1) 50%,
-    rgba(250, 250, 250, 0) 100%
+    rgba(244, 246, 244, 0) 0%,               /* 투명한 main-bg 톤 */
+    rgba(220, 222, 220, 1) 50%,              /* 회녹 흐림 효과 */
+    rgba(244, 246, 244, 0) 100%
   );
 
   /* Sidebar */
-  --site-title-color: rgb(113, 113, 113);
-  --site-subtitle-color: #717171;
-  --sidebar-bg: #f6f8fa;
-  --sidebar-border-color: #efefef;
-  --sidebar-muted-color: #545454;
-  --sidebar-active-color: #1d1d1d;
-  --sidebar-hover-bg: rgb(223, 233, 241, 0.64);
+  --site-title-color: rgb(95, 105, 85);
+  --site-subtitle-color: rgb(115, 125, 105);
+  --sidebar-bg: rgb(238, 240, 238);
+  --sidebar-border-color: rgb(218, 222, 218);
+  --sidebar-muted-color: rgb(100, 105, 100);
+  --sidebar-active-color: rgb(40, 50, 40);
+  --sidebar-hover-bg: rgba(180, 190, 180, 0.25);
   --sidebar-btn-bg: white;
-  --sidebar-btn-color: #8e8e8e;
+  --sidebar-btn-color: rgb(110, 110, 110);
   --avatar-border-color: white;
 
   /* Topbar */
-  --topbar-bg: rgb(255, 255, 255, 0.7);
+  --topbar-bg: rgb(244, 244, 244);
   --topbar-text-color: rgb(78, 78, 78);
-  --search-border-color: rgb(240, 240, 240);
-  --search-icon-color: #c2c6cc;
+  --search-border-color: rgb(180, 184, 180);
+  --search-icon-color: rgb(100, 160, 130);
   --input-focus-border-color: #b8b8b8;
 
   /* Home page */
@@ -57,58 +66,71 @@
   --btn-paginator-hover-color: var(--sidebar-bg);
 
   /* Posts */
-  --toc-highlight: #0550ae;
-  --toc-popup-border-color: lightgray;
-  --btn-share-color: gray;
-  --btn-share-hover-color: #0d6efd;
+  --toc-highlight: rgb(85, 130, 110);
+  --toc-popup-border-color: rgb(210, 215, 210);
+  --btn-share-color: rgb(100, 100, 100);
+  --btn-share-hover-color: rgb(12, 190, 140);
   --card-bg: white;
-  --card-hovor-bg: #e2e2e2;
-  --card-shadow: rgb(104, 104, 104, 0.05) 0 2px 6px 0,
-    rgba(211, 209, 209, 0.15) 0 0 0 1px;
-  --footnote-target-bg: lightcyan;
-  --tb-odd-bg: #fbfcfd;
-  --tb-border-color: #eaeaea;
-  --dash-color: silver;
-  --kbd-wrap-color: #bdbdbd;
-  --kbd-text-color: var(--text-color);
-  --kbd-bg-color: white;
-  --prompt-text-color: rgb(46, 46, 46, 0.77);
-  --prompt-tip-bg: rgb(123, 247, 144, 0.2);
-  --prompt-tip-icon-color: #03b303;
-  --prompt-info-bg: #e1f5fe;
-  --prompt-info-icon-color: #0070cb;
-  --prompt-warning-bg: rgb(255, 243, 205);
-  --prompt-warning-icon-color: #ef9c03;
-  --prompt-danger-bg: rgb(248, 215, 218, 0.56);
-  --prompt-danger-icon-color: #df3c30;
+  --card-hovor-bg: rgb(135, 165, 135);
+  --card-shadow: rgba(80, 80, 80, 0.05) 0 2px 6px 0,
+    rgba(190, 190, 190, 0.12) 0 0 0 1px;
+
+  --footnote-target-bg: rgb(210, 240, 230);
+
+  --tb-odd-bg: rgb(248, 250, 248);
+  --tb-border-color: rgb(220, 224, 220);
+
+  --dash-color: rgb(190, 192, 190);            /* 선명하지 않은 은은한 회녹 – 섹션 구분 */
+  --kbd-wrap-color: rgb(160, 165, 160);        /* kbd 테두리 – 진회녹 */
+  --kbd-text-color: rgb(50, 50, 50);           /* 어두운 회색 – 배경 대비 가독성 */
+  --kbd-bg-color: rgb(248, 248, 248);          /* 기본 밝은 배경 유지 */
+
+  /* Prompts - 공통 텍스트 */
+  --prompt-text-color: rgba(46, 46, 46, 0.77); /* 중간 회색, 배경 대비 확보 */
+
+  /* Prompts - 종류별 알림 */
+  --prompt-tip-bg: rgba(170, 230, 190, 0.25);  /* 연회녹 투명 배경 */
+  --prompt-tip-icon-color: rgb(65, 165, 95);   /* 중간 회녹 강조색 */
+
+  --prompt-info-bg: rgb(225, 245, 240);        /* 푸른 회녹 – 정보 느낌 */
+  --prompt-info-icon-color: rgb(70, 150, 160); /* 회색 섞인 청록색 아이콘 */
+
+  --prompt-warning-bg: rgb(255, 250, 225);     /* 연노랑-베이지 – 자연스러운 경고 */
+  --prompt-warning-icon-color: rgb(220, 140, 0); /* 주황과 황토의 중간 – 차분한 주의 색 */
+
+  --prompt-danger-bg: rgba(240, 210, 215, 0.56); /* 흐릿한 인디핑크 – 부드러운 경고 */
+  --prompt-danger-icon-color: rgb(190, 60, 50);  /* 짙은 붉은 갈색 – 회녹과 어울리는 경고색 */
 
   /* Tags */
-  --tag-border: #dee2e6;
-  --tag-shadow: var(--btn-border-color);
-  --tag-hover: rgb(222, 226, 230);
-  --search-tag-bg: #f8f9fa;
+  --tag-border: rgb(220, 224, 220);               /* 회녹 테두리 – 눈에 띄지 않게 자연스럽게 */
+  --tag-shadow: rgba(150, 160, 150, 0.3);         /* 부드러운 회녹 그림자 (기존 btn-border-color 기반) */
+  --tag-hover: rgb(232, 236, 232);                /* 살짝 강조되는 회녹 hover 배경 */
+  --search-tag-bg: rgb(245, 247, 245);            /* 거의 흰색에 가까운 회녹 – 백그라운드 일체화 */
 
   /* Categories */
-  --categories-border: rgba(0, 0, 0, 0.125);
-  --categories-hover-bg: var(--btn-border-color);
-  --categories-icon-hover-color: darkslategray;
+  --categories-border: rgba(100, 110, 100, 0.15); /* 낮은 채도의 회녹 테두리 – 라이트 테마와 조화 */
+  --categories-hover-bg: rgb(210, 222, 210);      /* 연한 연회녹 – hover 강조 */
+  --categories-icon-hover-color: rgb(70, 90, 70); /* 딥 회녹 – 아이콘 강조용 */
 
   /* Archive */
-  --timeline-color: rgba(0, 0, 0, 0.075);
-  --timeline-node-bg: #c2c6cc;
-  --timeline-year-dot-color: #ffffff;
+  --timeline-color: rgba(90, 100, 90, 0.08);      /* 흐릿한 회녹 음영 – 배경과 조화롭고 구분 가능 */
+  --timeline-node-bg: rgb(180, 190, 190);         /* muted 회녹 – 노드가 떠보이지 않게 */
+  --timeline-year-dot-color: #ffffff;             /* 연도 점은 흰색 유지 (대비를 위해) */
 
   /* --- Custom code light mode colors --- */
-  --language-border-color: #ececec;
-  --highlight-bg-color: #f6f8fa;
-  --highlighter-rouge-color: #3f596f;
-  --highlight-lineno-color: #9e9e9e;
-  --inline-code-bg: rgba(25, 25, 28, 0.05);
-  --code-color: #3a3a3a;
-  --code-header-text-color: #a3a3a3;
-  --code-header-muted-color: #e5e5e5;
-  --code-header-icon-color: #c9c8c8;
-  --clipboard-checked-color: #43c743;
+  --language-border-color: rgb(210, 215, 210);         /* 회녹 테두리 – 사이드바 경계와 유사 */
+  --highlight-bg-color: rgb(236, 240, 236);            /* main-bg보다 살짝 진한 회녹 배경 */
+  --highlighter-rouge-color: rgb(85, 130, 110);        /* 회녹 강조 키워드 색 – TOC highlight와 동일 톤 */
+  --highlight-lineno-color: rgb(160, 165, 160);        /* 흐릿한 회녹 회색 – 번호 텍스트 */
+
+  --inline-code-bg: rgba(160, 180, 160, 0.15);         /* 인라인 코드 – 연한 회녹 배경 */
+  --code-color: rgb(50, 60, 50);                       /* 코드 텍스트 – 어두운 회녹 (가독성 우선) */
+
+  --code-header-text-color: rgb(100, 105, 100);        /* 상단 파일명 – muted 회녹, 본문보다 눈에 띄지 않게 */
+  --code-header-muted-color: rgb(225, 230, 225);       /* 상단 헤더 배경/보더 – 전체 톤과 조화 */
+  --code-header-icon-color: rgb(150, 155, 150);        /* 복사 아이콘 등 – 중간 회녹 */
+
+  --clipboard-checked-color: #43c743;                  /* 그대로 유지 */
 
   [class^='prompt-'] {
     --link-underline-color: rgb(219, 216, 216);
