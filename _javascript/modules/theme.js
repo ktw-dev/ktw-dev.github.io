@@ -65,7 +65,7 @@ class Theme {
    * @param {string} comfortGreen Value for Comfort Green mode
    * @returns {Object} Mapped values
    */
-  static getThemeMapper(light, dark) {
+  static getThemeMapper(light, dark, comfortGreen) {
     return {
       [this.LIGHT]: light,
       [this.DARK]: dark,
