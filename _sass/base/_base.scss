@@ -28,17 +28,6 @@ html {
       @include dark.styles;
     }
 
-    &[data-mode='comfort_green'] {
-      @include comfort_green.styles;
-    }
-  }
-
-  @media (prefers-color-scheme: comfort_green) {
-    &:not([data-mode]),
-    &[data-mode='comfort_green'] {
-      @include comfort_green.styles;
-    }
-
     &[data-mode='light'] {
       @include light.styles;
     }

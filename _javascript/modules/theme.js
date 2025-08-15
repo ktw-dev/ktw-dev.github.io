@@ -50,6 +50,10 @@ class Theme {
     return this.#mode !== null;
   }
 
+  static get #isComfortGreenMode() {
+    return this.#mode === this.COMFORT_GREEN
+  }
+
   static get #sysDark() {
     return this.#darkMedia.matches;
   }
@@ -58,12 +62,14 @@ class Theme {
    * Maps theme modes to provided values
    * @param {string} light Value for light mode
    * @param {string} dark Value for dark mode
+   * @param {string} comfortGreen Value for Comfort Green mode
    * @returns {Object} Mapped values
    */
   static getThemeMapper(light, dark) {
     return {
       [this.LIGHT]: light,
-      [this.DARK]: dark
+      [this.DARK]: dark,
+      [this.COMFORT_GREEN]: comfortGreen
     };
   }
 
@@ -90,6 +96,8 @@ class Theme {
 
     if (this.#isDarkMode) {
       this.#setDark();
+    } else if (this.#isComfortGreenMode) {
+      this.#setComfortGreen();
     } else {
       this.#setLight();
     }
@@ -99,8 +107,14 @@ class Theme {
    * Flips the current theme mode
    */
   static flip() {
-    if (this.#hasMode) {
-      this.#clearMode();
+    const currentMode = this.visualState;
+
+    if (currentMode === this.LIGHT) {
+      this.#setDark();
+    } else if (currentMode === this.DARK) {
+      this.#setComfortGreen(); // Dark to ComfortGreen
+    } else if (currentMode === this.COMFORT_GREEN) {
+      this.#setLight(); // ComfortGreen to Light
     } else {
       this.#sysDark ? this.#setLight() : this.#setDark();
     }
@@ -115,6 +129,11 @@ class Theme {
   static #setLight() {
     document.documentElement.setAttribute(this.#modeAttr, this.LIGHT);
     sessionStorage.setItem(this.#modeKey, this.LIGHT);
+  }
+
+  static #setComfortGreen() {
+    document.documentElement.setAttribute(this.#modeAttr, this.COMFORT_GREEN);
+    sessionStorage.setItem(this.#modeKey, this.COMFORT_GREEN)
   }
 
   static #clearMode() {
