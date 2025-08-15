@@ -10,7 +10,7 @@
   >
 
   {%- capture seo_tags -%}
-    {% seo title=false %}
+    {% seo title=false %} 
   {%- endcapture -%}
 
   <!-- Setup Open Graph image -->
@@ -74,7 +74,7 @@
   {% endunless %}
 
   <!-- Theme style -->
-  <link rel="stylesheet" href="{{ '/assets/css/:THEME.css' | replace: ':THEME', site.theme | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/:THEME.css?=v' | append: site.version | replace: ':THEME', site.theme | relative_url }}">
 
   <!-- Web Font -->
   <link rel="stylesheet" href="{{ site.data.origin[type].webfonts | relative_url }}">
