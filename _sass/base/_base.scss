@@ -4,6 +4,7 @@
 @use '../abstracts/placeholders';
 @use '../themes/light';
 @use '../themes/dark';
+@use '../themes/comfort_green';
 
 :root {
   font-size: 16px;
@@ -25,6 +26,17 @@ html {
     &:not([data-mode]),
     &[data-mode='dark'] {
       @include dark.styles;
+    }
+
+    &[data-mode='comfort_green'] {
+      @include comfort_green.styles;
+    }
+  }
+
+  @media (prefers-color-scheme: comfort_green) {
+    &:not([data-mode]),
+    &[data-mode='comfort_green'] {
+      @include comfort_green.styles;
     }
 
     &[data-mode='light'] {
