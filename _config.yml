@@ -16,10 +16,11 @@ timezone: Asia/Seoul
 
 title: KTW의 개발 블로그 # the main title
 
-tagline: 대학생이 소소하게 운영하는 개발 블로그입니다 # it will display as the subtitle
+tagline: AI 툴 활용과 게임 개발, 그 발자취를 기록하는 블로그 # it will display as the subtitle
 
 description: >- # used by seo meta and the atom feed
-  이거는 키워드래요. python, c, c++, html, css, docker, cryptography
+  Claude와 Codex 같은 AI 툴 활용기, 취미 게임 개발, 그리고 개발 과정을 기록한다.
+  python, c, c++, docker, cryptography
 
 # Fill in the protocol & hostname for your site.
 # E.g. 'https://username.github.io', note that it does not end with a '/'.
