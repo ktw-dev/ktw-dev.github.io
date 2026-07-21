@@ -1,7 +1,7 @@
 ---
 title: "github 블로그: 카테고리와 태그 설정하기"
 date: 2025-02-25
-categories: [github, blog-settings]
+categories: [블로그, 설정]
 tags: [jekyll, front-matter, yaml]
 ---
 

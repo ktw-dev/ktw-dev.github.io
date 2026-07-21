@@ -36,10 +36,14 @@ cat <<EOF > "$filename"
 ---
 title: "$title"
 date: $datetime
-categories: [Blog]
-tags: [template]
+categories: [블로그, 설정]
+tags: []
 ---
 
 EOF
 
 echo "✅ Created: $filename"
+echo "ℹ️  front matter의 categories/tags를 글 성격에 맞게 수정하세요."
+echo "   - 블로그 운영/설정 글: categories: [블로그, 설정]"
+echo "   - 개발 도구/AI 글:     categories: [개발 도구, AI]"
+echo "   - tags 는 소문자 케밥 케이스로 채울 것 (예: [git, jekyll])"

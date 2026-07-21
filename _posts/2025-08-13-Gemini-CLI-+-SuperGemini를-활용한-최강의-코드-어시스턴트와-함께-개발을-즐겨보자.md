@@ -1,3 +1,10 @@
+---
+title: "Gemini CLI + SuperGemini를 활용한 최강의 코드 어시스턴트와 함께 개발을 즐겨보자"
+date: 2025-08-13 00:00:00 +0900
+categories: [개발 도구, AI]
+tags: [gemini-cli, supergemini, pipx, python]
+---
+
 # 
 
 `pip3 install SuperGemini                       < 127 ✘ < 12:03:52 ⨀`

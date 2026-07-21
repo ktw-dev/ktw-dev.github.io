@@ -1,3 +1,10 @@
+---
+title: "commit type custom 하기"
+date: 2025-08-06 00:00:00 +0900
+categories: [블로그, 설정]
+tags: [git, commitlint, husky, conventional-commits]
+---
+
 > jekyll을 사용하다보면 조금 불편한 부분이 있다. <br>
 그 중 하나가 commit message의 format을 강제하는 기능인데, 반드시 git commit -m 이후 메시지에 "feat:, docs:, fix:, chore:" 중 하나를 넣고 커밋을 해야한다. <br> 
 이 설정을 수정하고 싶어서 방법을 찾아봤는데 생각보다 간단하고 유용하게 쓸 수 있어서 가져와보았다.
