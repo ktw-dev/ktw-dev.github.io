@@ -134,9 +134,9 @@ main {
   margin-top: 2rem;
   overflow-wrap: break-word;
 
-  @include bp.xl {
-    font-size: 1.03rem;
-  }
+  /* Chirpy shrinks this to 1.03rem at xl. That puts the smallest text
+     on the widest layout, where lines are already longest — measured
+     44.5 Hangul syllables per line at 1920px. Keep one size instead. */
 
   a {
     &.popup {
