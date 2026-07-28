@@ -9,7 +9,7 @@ tags: [git, commitlint, husky, conventional-commits]
 그 중 하나가 commit message의 format을 강제하는 기능인데, 반드시 git commit -m 이후 메시지에 "feat:, docs:, fix:, chore:" 중 하나를 넣고 커밋을 해야한다. <br> 
 이 설정을 수정하고 싶어서 방법을 찾아봤는데 생각보다 간단하고 유용하게 쓸 수 있어서 가져와보았다.
 
-# commit message format이 강제되면 무엇이 좋을까?
+## commit message format이 강제되면 무엇이 좋을까?
 
 우선 이렇게 포맷을 강제하는 이유부터 생각해보자. 규칙이 강제되는 메시지는 몇 가지 장점을 가질 수 있다. 
 
@@ -25,7 +25,7 @@ tags: [git, commitlint, husky, conventional-commits]
 
 그러면 이 포맷은 어떤 패키지에 의해 강제되었던 걸까?
 
-## commitlint와 Conventional Commits
+### commitlint와 Conventional Commits
 바로 commitlint이다. 이 도구는 Git commit message가 일정한 형식을 따르도록 강제한다. <br>
 주로 [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)라는 표준 규칙을 기반으로 사용된다. 주로 자동화나 협업 효율을 높이기 위해 사용된다.
 
@@ -58,7 +58,7 @@ tags: [git, commitlint, husky, conventional-commits]
 
 결국 이 방법은 장점이 뚜렷하지만 개인 프로젝트에서는 크게 의미를 가지지 못하기에 형식을 강제하지 못하게 만드는 것을 추천한다. 
 
-## commit message 형식 자유롭게 만드는 방법
+### commit message 형식 자유롭게 만드는 방법
 이제 이 형식을 해제하는 방법을 알아보겠다. <br> jekyll의 깃허브 블로그 폴더를 보면 `package.json`이 보일 것이다. 이 파일의 역할은 Node.js 프로젝트의 mata-data, dependency, 실행 스크립트, settings을 전부 담고 있는 핵심 파일이다. 
 
 여기서 우리는 devDependencies 부분만 확인하겠다. `cmd(ctrl) + F ` 누르고 `commitlint` 검색하면 아래와 같이 있을 것이다.

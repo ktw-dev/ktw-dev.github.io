@@ -10,7 +10,7 @@ tags: [jekyll, front-matter, yaml]
 제목, 날짜, 카테고리, 태그를 설정하는 방법을 모른다는 것이다... <br>
 그래서 이번 시간에는 Front Matter라는 개념을 배우고 태그와 카테고리를 설정하는 것을 배워본다.
 
-# Front Matter
+## Front Matter
 Front Matter를 인터넷에 검색하면 다음과 같이 설명한다.
 
 > Front-matter is a block of YAML or JSON at the beginning of the file that is used to configure settings for your writings. <br> Front-matter is terminated by three dashes when written in YAML or three semicolons when written in JSON.
@@ -36,7 +36,7 @@ tags: [tag 1, tag 2]
 라고 하기엔 여러분은 아직 궁금한게 있을 것이다. <br>
 바로... '카테고리나 태그는 어떻게 써야하는지' 이다...
 
-# Category와 Tag
+## Category와 Tag
 두 개의 개념을 잘 아는 사람도 있을거지만 아닌 사람들도 제법 있을 것이기에, 먼저 구글링을 통해 두 용어의 의미상 차이를 알아보자.<br>
 
 ```

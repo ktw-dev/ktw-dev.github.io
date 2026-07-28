@@ -5,8 +5,6 @@ categories: [개발 도구, AI]
 tags: [gemini-cli, supergemini, pipx, python]
 ---
 
-# 
-
 `pip3 install SuperGemini                       < 127 ✘ < 12:03:52 ⨀`
 
 ```shell
