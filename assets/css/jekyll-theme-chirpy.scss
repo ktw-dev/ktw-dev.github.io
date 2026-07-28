@@ -64,6 +64,39 @@ main {
   }
 }
 
+/* Heading scale.
+   Chirpy generates sizes from a loop in _sass/base/_typography.scss whose
+   steps are uneven (1.30 / 1.13 / 1.15 / 1.12) and bottom out below the
+   body: h5 landed at 16.80px against 17.28px body text, so a heading came
+   out smaller than the text it introduces.
+
+   Replaced with a constant 1.15 ratio anchored to the same h1, which keeps
+   the current look while separating the crowded lower levels. Hangul needs
+   the wider steps more than Latin does — 받침 strokes blur together once
+   consecutive levels sit within a couple of pixels.
+
+   Sidebar panel headings (label(inherit)) and home card titles (1.25rem)
+   set their own sizes and are unaffected. */
+h1 {
+  font-size: 2.01rem; /* 32.2px */
+}
+
+h2 {
+  font-size: 1.75rem; /* 28.0px */
+}
+
+h3 {
+  font-size: 1.52rem; /* 24.3px */
+}
+
+h4 {
+  font-size: 1.32rem; /* 21.2px */
+}
+
+h5 {
+  font-size: 1.15rem; /* 18.4px — was 16.80px, below the 17.28px body */
+}
+
 /* Chirpy hardcodes Lato/Oswald in these spots instead of routing
    them through $font-family-heading, so they fell through to the
    generic sans-serif once those families stopped being loaded.
