@@ -2,7 +2,7 @@
   /* Framework color */
   --main-bg: rgb(244, 246, 244);
   --mask-bg: rgb(180, 184, 182);
-  --main-border-color: rgb(200, 222, 200);
+  --main-border-color: rgb(214, 224, 214);  /* 초록기미 +22 → +10 으로 완화, 다른 보더와 통일 */
 
   /* Common color */
   --text-color: #34343c;
@@ -13,8 +13,8 @@
   --blockquote-border-color: #eeeeee;
   --blockquote-text-color: #757575;
 
-  --link-color: #0056b2;             
-  --link-underline-color: rgb(210, 220, 210);  /* 링크 밑줄 – 은은한 연회녹 */
+  --link-color: rgb(45, 106, 79);  /* #2D6A4F  6.39:1 AA — sage 링크 */
+  --link-underline-color: rgb(190, 210, 198);  /* sage 밑줄 */
 
   /* 버튼 */
   --button-bg: #ffffff;                        /* 버튼 배경은 유지 (깔끔함) */
@@ -24,7 +24,7 @@
 
   /* 체크박스 */
   --checkbox-color: rgb(190, 200, 190);        /* 비활성 회녹 회색 */
-  --checkbox-checked-color: rgb(85, 130, 110); /* 체크 시 강조 색상 – 링크와 통일 */
+  --checkbox-checked-color: rgb(140, 74, 50);  /* 테라코타 */
 
   /* 이미지 배경 (로딩 전 or 누끼용) */
   --img-bg: radial-gradient(
@@ -54,10 +54,10 @@
   --avatar-border-color: white;
 
   /* Topbar */
-  --topbar-bg: rgb(244, 244, 244);
+  --topbar-bg: rgb(240, 242, 240);  /* 중성회색 → sage 통일 */
   --topbar-text-color: rgb(78, 78, 78);
   --search-border-color: rgb(180, 184, 180);
-  --search-icon-color: rgb(100, 160, 130);
+  --search-icon-color: rgb(140, 74, 50);  /* 테라코타 */
   --input-focus-border-color: #b8b8b8;
 
   /* Home page */
@@ -66,16 +66,16 @@
   --btn-paginator-hover-color: var(--sidebar-bg);
 
   /* Posts */
-  --toc-highlight: rgb(85, 130, 110);
+  --toc-highlight: rgb(140, 74, 50);  /* #8C4A32  6.69:1 AA — 테라코타 강조 */
   --toc-popup-border-color: rgb(210, 215, 210);
   --btn-share-color: rgb(100, 100, 100);
-  --btn-share-hover-color: rgb(12, 190, 140);
+  --btn-share-hover-color: rgb(140, 74, 50);  /* 형광민트 2.40:1 FAIL → 테라코타 6.69:1 */
   --card-bg: white;
-  --card-hovor-bg: rgb(135, 165, 135);
+  --card-hovor-bg: rgb(232, 238, 232);  /* 너무 진해 카드 위 본문이 4.56까지 떨어지던 것 완화 */
   --card-shadow: rgba(80, 80, 80, 0.05) 0 2px 6px 0,
     rgba(190, 190, 190, 0.12) 0 0 0 1px;
 
-  --footnote-target-bg: rgb(210, 240, 230);
+  --footnote-target-bg: rgb(245, 230, 222);  /* 테라코타 연한 톤 */
 
   --tb-odd-bg: rgb(248, 250, 248);
   --tb-border-color: rgb(220, 224, 220);
@@ -110,7 +110,7 @@
   /* Categories */
   --categories-border: rgba(100, 110, 100, 0.15); /* 낮은 채도의 회녹 테두리 – 라이트 테마와 조화 */
   --categories-hover-bg: rgb(210, 222, 210);      /* 연한 연회녹 – hover 강조 */
-  --categories-icon-hover-color: rgb(70, 90, 70); /* 딥 회녹 – 아이콘 강조용 */
+  --categories-icon-hover-color: rgb(140, 74, 50);  /* 테라코타 */
 
   /* Archive */
   --timeline-color: rgba(90, 100, 90, 0.08);      /* 흐릿한 회녹 음영 – 배경과 조화롭고 구분 가능 */
@@ -120,7 +120,7 @@
   /* --- Custom code light mode colors --- */
   --language-border-color: rgb(210, 215, 210);         /* 회녹 테두리 – 사이드바 경계와 유사 */
   --highlight-bg-color: rgb(236, 240, 236);            /* main-bg보다 살짝 진한 회녹 배경 */
-  --highlighter-rouge-color: rgb(85, 130, 110);        /* 회녹 강조 키워드 색 – TOC highlight와 동일 톤 */
+  --highlighter-rouge-color: rgb(47, 107, 84);  /* #2F6B54  6.26:1 — 4.37:1 미달이던 인라인 코드 색 개선 */
   --highlight-lineno-color: rgb(160, 165, 160);        /* 흐릿한 회녹 회색 – 번호 텍스트 */
 
   --inline-code-bg: rgba(160, 180, 160, 0.15);         /* 인라인 코드 – 연한 회녹 배경 */

@@ -2,114 +2,118 @@
   color-scheme: dark;
 
   /* Framework color */
-  --main-bg: rgb(27, 27, 30);
-  --mask-bg: rgb(68, 69, 70);
-  --main-border-color: rgb(44, 45, 45);
+  --main-bg: rgb(26, 29, 27);                    /* sage 기미를 넣은 다크 바탕 */
+  --mask-bg: rgb(62, 68, 64);
+  --main-border-color: rgb(42, 47, 43);
 
   /* Common color */
-  --text-color: rgb(175, 176, 177);
-  --text-muted-color: #868686;
-  --text-muted-highlight-color: #aeaeae;
-  --heading-color: #cccccc;
-  --label-color: #a7a7a7;
-  --blockquote-border-color: rgb(66, 66, 66);
-  --blockquote-text-color: #868686;
-  --link-color: rgb(138, 180, 248);
-  --link-underline-color: rgb(82, 108, 150);
-  --button-bg: #1e1e1e;
-  --btn-border-color: #2e2f31;
+  --text-color: rgb(176, 179, 176);              /* 7.83:1 AAA */
+  --text-muted-color: rgb(142, 147, 142);        /* 5.43:1 — 기본 #868686은 카드 위 4.42로 AA 미달이라 상향 */
+  --text-muted-highlight-color: rgb(174, 178, 174);
+  --heading-color: rgb(204, 208, 204);
+  --label-color: rgb(167, 171, 167);
+  --blockquote-border-color: rgb(62, 68, 63);
+  --blockquote-text-color: rgb(142, 147, 142);
+  --link-color: rgb(127, 184, 157);              /* #7FB89D  7.48:1 AAA — 라이트 #2D6A4F의 다크 짝 */
+  --link-underline-color: rgb(70, 100, 85);
+  --button-bg: rgb(30, 34, 31);
+  --btn-border-color: rgb(46, 51, 47);
   --btn-backtotop-color: var(--text-color);
-  --btn-backtotop-border-color: #212122;
-  --card-header-bg: #292929;
-  --checkbox-color: rgb(118, 120, 121);
-  --checkbox-checked-color: var(--link-color);
-  --img-bg: radial-gradient(circle, rgb(22, 22, 24) 0%, rgb(32, 32, 32) 100%);
+  --btn-backtotop-border-color: rgb(33, 36, 34);
+  --card-header-bg: rgb(41, 45, 42);
+  --checkbox-color: rgb(112, 120, 114);
+  --checkbox-checked-color: rgb(219, 149, 117);  /* 테라코타 — 라이트와 같은 역할 */
+  --img-bg: radial-gradient(
+    circle,
+    rgb(21, 24, 22) 0%,
+    rgb(31, 34, 32) 100%
+  );
   --shimmer-bg: linear-gradient(
     90deg,
     rgba(255, 255, 255, 0) 0%,
-    rgba(58, 55, 55, 0.4) 50%,
+    rgba(55, 60, 56, 0.4) 50%,
     rgba(255, 255, 255, 0) 100%
   );
 
   /* Sidebar */
-  --site-title-color: #717070;
-  --site-subtitle-color: #868686;
-  --sidebar-bg: #1e1e1e;
-  --sidebar-border-color: #292929;
-  --sidebar-muted-color: #868686;
+  --site-title-color: rgb(128, 150, 134);        /* sage 기미 — 라이트의 rgb(95,105,85)와 대응 */
+  --site-subtitle-color: rgb(134, 140, 134);
+  --sidebar-bg: rgb(23, 26, 24);
+  --sidebar-border-color: rgb(38, 42, 39);
+  --sidebar-muted-color: rgb(134, 140, 134);
   --sidebar-active-color: rgb(255, 255, 255, 0.95);
-  --sidebar-hover-bg: #262626;
-  --sidebar-btn-bg: #232328;
-  --sidebar-btn-color: #787878;
-  --avatar-border-color: rgb(206, 206, 206, 0.9);
+  --sidebar-hover-bg: rgb(37, 42, 38);
+  --sidebar-btn-bg: rgb(35, 40, 36);
+  --sidebar-btn-color: rgb(120, 126, 120);
+  --avatar-border-color: rgb(206, 210, 206, 0.9);
 
   /* Topbar */
-  --topbar-bg: rgb(27, 27, 30, 0.64);
+  --topbar-bg: rgb(26, 29, 27, 0.64);
   --topbar-text-color: var(--text-color);
-  --search-border-color: rgb(55, 55, 55);
-  --search-icon-color: rgb(100, 102, 105);
-  --input-focus-border-color: rgb(112, 114, 115);
+  --search-border-color: rgb(53, 58, 54);
+  --search-icon-color: rgb(219, 149, 117);       /* 테라코타 */
+  --input-focus-border-color: rgb(110, 116, 111);
 
   /* Home page */
-  --post-list-text-color: rgb(175, 176, 177);
+  --post-list-text-color: rgb(176, 179, 176);
   --btn-patinator-text-color: var(--text-color);
-  --btn-paginator-hover-color: #2e2e2e;
+  --btn-paginator-hover-color: rgb(45, 50, 46);
 
   /* Posts */
-  --toc-highlight: rgb(116, 178, 243);
-  --toc-popup-border-color: #373737;
-  --tag-hover: rgb(43, 56, 62);
-  --tb-odd-bg: #252526; /* odd rows of the posts' table */
-  --tb-even-bg: rgb(31, 31, 34); /* even rows of the posts' table */
+  --toc-highlight: rgb(219, 149, 117);           /* #DB9575  6.93:1 — 라이트 #8C4A32의 다크 짝 */
+  --toc-popup-border-color: rgb(55, 60, 56);
+  --tag-hover: rgb(42, 54, 47);
+  --tb-odd-bg: rgb(37, 40, 38);
+  --tb-even-bg: rgb(30, 33, 31);
   --tb-border-color: var(--tb-odd-bg);
-  --footnote-target-bg: rgb(63, 81, 181);
-  --btn-share-color: #6c757d;
-  --btn-share-hover-color: #bfc1ca;
-  --card-bg: #1e1e1e;
-  --card-hovor-bg: #464d51;
-  --card-shadow: rgb(21, 21, 21, 0.72) 0 6px 18px 0,
-    rgb(137, 135, 135, 0.24) 0 0 0 1px;
-  --kbd-wrap-color: #6a6a6a;
-  --kbd-text-color: #d3d3d3;
-  --kbd-bg-color: #242424;
-  --prompt-text-color: rgb(216, 212, 212, 0.75);
-  --prompt-tip-bg: rgb(22, 60, 36, 0.64);
-  --prompt-tip-icon-color: rgb(15, 164, 15, 0.81);
-  --prompt-info-bg: rgb(7, 59, 104, 0.8);
-  --prompt-info-icon-color: #0075d1;
-  --prompt-warning-bg: rgb(90, 69, 3, 0.88);
-  --prompt-warning-icon-color: rgb(255, 165, 0, 0.8);
-  --prompt-danger-bg: rgb(86, 28, 8, 0.8);
-  --prompt-danger-icon-color: #cd0202;
+  --footnote-target-bg: rgb(107, 62, 42);        /* 인디고 → 테라코타 어두운 톤 */
+  --btn-share-color: rgb(108, 117, 110);
+  --btn-share-hover-color: rgb(219, 149, 117);   /* 테라코타 */
+  --card-bg: rgb(30, 34, 31);
+  --card-hovor-bg: rgb(56, 66, 59);              /* Chirpy 7.2.4 원본 오타 변수명 — 그대로 둘 것 */
+  --card-shadow: rgb(18, 21, 19, 0.72) 0 6px 18px 0,
+    rgb(135, 140, 135, 0.24) 0 0 0 1px;
+  --kbd-wrap-color: rgb(106, 112, 107);
+  --kbd-text-color: rgb(211, 215, 211);
+  --kbd-bg-color: rgb(36, 40, 37);
+  --prompt-text-color: rgb(214, 216, 213, 0.75);
+  --prompt-tip-bg: rgb(24, 58, 40, 0.64);
+  --prompt-tip-icon-color: rgb(90, 180, 130, 0.9);
+  --prompt-info-bg: rgb(10, 55, 62, 0.8);
+  --prompt-info-icon-color: rgb(70, 160, 175);
+  --prompt-warning-bg: rgb(88, 70, 12, 0.88);
+  --prompt-warning-icon-color: rgb(230, 165, 60, 0.9);
+  --prompt-danger-bg: rgb(88, 34, 20, 0.8);
+  --prompt-danger-icon-color: rgb(210, 90, 70);
 
   /* Tags */
-  --tag-border: rgb(59, 79, 88);
-  --tag-shadow: rgb(32, 33, 33);
-  --dash-color: rgb(63, 65, 68);
-  --search-tag-bg: #292828;
+  --tag-border: rgb(58, 72, 64);                 /* 청록 → sage 어두운 톤 */
+  --tag-shadow: rgb(30, 34, 31);
+  --dash-color: rgb(60, 66, 61);
+  --search-tag-bg: rgb(38, 42, 39);
 
   /* Categories */
-  --categories-border: rgb(64, 66, 69, 0.5);
-  --categories-hover-bg: rgb(73, 75, 76);
-  --categories-icon-hover-color: white;
+  --categories-border: rgb(62, 68, 63, 0.5);
+  --categories-hover-bg: rgb(68, 76, 70);
+  --categories-icon-hover-color: rgb(219, 149, 117); /* 테라코타 */
 
   /* Archive */
-  --timeline-node-bg: rgb(150, 152, 156);
-  --timeline-color: rgb(63, 65, 68);
+  --timeline-node-bg: rgb(148, 156, 150);
+  --timeline-color: rgb(60, 66, 61);
   --timeline-year-dot-color: var(--timeline-color);
 
   /* Code highlight colors */
-  --language-border-color: #2d2d2d;
-  --highlight-bg-color: #151515;
-  --highlighter-rouge-color: #c9def1;
-  --highlight-lineno-color: #808080;
-  --inline-code-bg: rgba(255, 255, 255, 0.05);
-  --code-color: #b0b0b0;
-  --code-header-text-color: #6a6a6a;
-  --code-header-muted-color: #353535;
-  --code-header-icon-color: #565656;
-  --clipboard-checked-color: #2bcc2b;
-  --filepath-text-color: #cacaca;
+  --language-border-color: rgb(43, 48, 44);
+  --highlight-bg-color: rgb(19, 21, 20);
+  --highlighter-rouge-color: rgb(168, 201, 184); /* #A8C9B8 — 연파랑 #c9def1 대체 */
+  --highlight-lineno-color: rgb(126, 132, 127);
+  --inline-code-bg: rgba(140, 180, 155, 0.1);
+  --code-color: rgb(176, 182, 177);
+  --code-header-text-color: rgb(106, 112, 107);
+  --code-header-muted-color: rgb(52, 57, 53);
+  --code-header-icon-color: rgb(86, 92, 87);
+  --clipboard-checked-color: rgb(43, 204, 43);
+  --filepath-text-color: rgb(200, 205, 200);
 
   .light {
     display: none;
@@ -141,11 +145,11 @@
   #archives li:nth-child(odd) {
     background-image: linear-gradient(
       to left,
-      rgb(26, 26, 30),
-      rgb(39, 39, 45),
-      rgb(39, 39, 45),
-      rgb(39, 39, 45),
-      rgb(26, 26, 30)
+      rgb(25, 28, 26),
+      rgb(38, 43, 39),
+      rgb(38, 43, 39),
+      rgb(38, 43, 39),
+      rgb(25, 28, 26)
     );
   }
 
