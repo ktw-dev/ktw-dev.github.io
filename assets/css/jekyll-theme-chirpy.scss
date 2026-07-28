@@ -6,5 +6,73 @@
   .bundle
 {%- endif -%}
 ';
+@use 'abstracts/variables' as v;
 
 /* append your custom style below */
+
+/* =========================================================
+   Korean typography
+   Body/heading family is set in _sass/abstracts/_variables.scss
+   (Noto Sans KR variable, wght 100-900). The rules below cover
+   what a Latin-oriented theme does not handle for Hangul.
+   ========================================================= */
+
+/* Hangul line breaking.
+   Default `word-break: normal` lets browsers break Korean at any
+   character. `keep-all` breaks on 어절 (word segment) boundaries
+   instead. Paired with overflow-wrap so long URLs still wrap. */
+.content,
+#post-list .post-preview,
+h1,
+h2,
+h3,
+h4,
+h5,
+.post-title,
+.site-title,
+.site-subtitle {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* Code must keep character-level breaking — keep-all would push
+   long tokens outside the block. */
+.content {
+  pre,
+  code,
+  .highlight {
+    word-break: normal;
+  }
+}
+
+/* Noto Sans KR sets slightly wide default tracking at text sizes.
+   A small negative value tightens Hangul without hurting Latin. */
+.content {
+  letter-spacing: -0.003em;
+}
+
+/* Heading hierarchy now comes from weight rather than a second
+   family, so lift headings off the theme's default 400. */
+main {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+}
+
+/* Chirpy hardcodes Lato/Oswald in these spots instead of routing
+   them through $font-family-heading, so they fell through to the
+   generic sans-serif once those families stopped being loaded.
+   Oswald was never in the webfont URL to begin with. */
+kbd,
+.pagination,
+.tag span,
+#archives .date.day,
+#notification .toast-body {
+  font-family: v.$font-family-base;
+}
+
