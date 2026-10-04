@@ -1,139 +1,174 @@
 @mixin styles {
-  /* Framework color */
-  --main-bg: rgb(244, 246, 244);
-  --mask-bg: rgb(180, 184, 182);
-  --main-border-color: rgb(214, 224, 214);  /* 초록기미 +22 → +10 으로 완화, 다른 보더와 통일 */
+  /* ===== Design tokens (claude-md/ui-style-prd.md 6장). 라이트와 다크는 같은 토큰 집합을 가진다. ===== */
 
-  /* Common color */
-  --text-color: #34343c;
-  --text-muted-color: #757575;
-  --text-muted-highlight-color: inherit;
-  --heading-color: #2a2a2a;
-  --label-color: #585858;
-  --blockquote-border-color: #eeeeee;
-  --blockquote-text-color: #757575;
+  /* Surfaces */
+  --surface-page: #f4f6f4;
+  --surface-card: #ffffff;
+  --surface-float: #ffffff;
+  --surface-sunken: #ecf0ed;
+  --surface-hover: #e9eeea;
+  --surface-pressed: #e1e7e3;
+  --code-bg: #ecf0ed;
 
-  --link-color: rgb(45, 106, 79);  /* #2D6A4F  6.39:1 AA — sage 링크 */
-  --link-underline-color: rgb(190, 210, 198);  /* sage 밑줄 */
+  /* Ink (text) */
+  --ink-1: #1c211e;
+  --ink-2: #2a302c;
+  --ink-3: #4a524d;
+  --ink-4: #5e6661;
 
-  /* 버튼 */
-  --button-bg: #ffffff;                        /* 버튼 배경은 유지 (깔끔함) */
-  --btn-border-color: rgb(210, 220, 210);      /* 연회녹 테두리 – 카드/테이블과 통일감 */
-  --btn-backtotop-color: rgb(85, 110, 85);     /* 연한 진회녹 텍스트 – 강조되지만 튀지 않음 */
-  --btn-backtotop-border-color: rgb(225, 230, 225); /* 백투탑 경계선 – 흐린 회녹 */
+  /* Lines */
+  --line: rgba(28, 33, 30, 0.1);
+  --line-strong: rgba(28, 33, 30, 0.18);
+  --line-control: #7d8580;
 
-  /* 체크박스 */
-  --checkbox-color: rgb(190, 200, 190);        /* 비활성 회녹 회색 */
-  --checkbox-checked-color: rgb(140, 74, 50);  /* 테라코타 */
+  /* Accent (sage) and marker (terracotta) */
+  --accent: #2d6a4f;
+  --accent-underline: rgba(45, 106, 79, 0.4);
+  --accent-tint: #dcebe2;
+  --marker: #8c4a32;
+  --marker-tint: color-mix(in srgb, #8c4a32 12%, var(--surface-card));
 
-  /* 이미지 배경 (로딩 전 or 누끼용) */
-  --img-bg: radial-gradient(
-    circle,
-    rgb(255, 255, 255) 0%,
-    rgb(238, 240, 238) 100%
-  );
+  /* Status */
+  --status-tip: #2e6b45;
+  --status-info: #2b6380;
+  --status-warning: #7a5c14;
+  --status-danger: #a33a3a;
+  --status-tip-bg: color-mix(in srgb, var(--status-tip) 8%, var(--surface-card));
+  --status-info-bg: color-mix(in srgb, var(--status-info) 8%, var(--surface-card));
+  --status-warning-bg: color-mix(in srgb, var(--status-warning) 8%, var(--surface-card));
+  --status-danger-bg: color-mix(in srgb, var(--status-danger) 8%, var(--surface-card));
 
-  /* shimmer 효과 – 로딩 시keleton */
+  /* Misc */
+  --inverse-bg: #1c211e;
+  --inverse-ink: #edf0ee;
+  --diagram-plate: transparent;
+  --mark-bg: #2d6a4f;
+  --mark-ink: #ffffff;
+
+  /* Elevation: 그림자는 떠 있는 요소에만 쓴다 */
+  --shadow-bar: 0 1px 2px rgba(20, 30, 25, 0.04), 0 4px 12px rgba(20, 30, 25, 0.06);
+  --shadow-float: 0 0.6px 0.6px -1.25px rgba(0, 0, 0, 0.18),
+    0 2.3px 2.3px -2.5px rgba(0, 0, 0, 0.16), 0 10px 10px -3.75px rgba(0, 0, 0, 0.06);
+
+  /* ===== Legacy Chirpy variables: 새 토큰의 별칭. 사용처를 토큰으로 옮긴 뒤 제거한다(PRD 6-1). ===== */
+
+  /* Framework */
+  --main-bg: var(--surface-page);
+  --mask-bg: var(--line-control);
+  --main-border-color: var(--line);
+
+  /* Text */
+  --text-color: var(--ink-2);
+  --text-muted-color: var(--ink-4);
+  --text-muted-highlight-color: var(--ink-3);
+  --heading-color: var(--ink-1);
+  --label-color: var(--ink-3);
+  --blockquote-border-color: var(--line-strong);
+  --blockquote-text-color: var(--ink-3);
+  --link-color: var(--accent);
+  --link-underline-color: var(--accent-underline);
+
+  /* Buttons and form controls */
+  --button-bg: var(--surface-card);
+  --btn-border-color: var(--line);
+  --btn-backtotop-color: var(--ink-3);
+  --btn-backtotop-border-color: var(--line);
+  --checkbox-color: var(--line-control);
+  --checkbox-checked-color: var(--marker);
+
+  /* Sidebar */
+  --site-title-color: var(--ink-1);
+  --site-subtitle-color: var(--ink-3);
+  --sidebar-bg: var(--surface-sunken);
+  --sidebar-border-color: var(--line);
+  --sidebar-muted-color: var(--ink-3);
+  --sidebar-active-color: var(--ink-1);
+  --sidebar-hover-bg: var(--surface-hover);
+  --sidebar-btn-bg: var(--surface-card);
+  --sidebar-btn-color: var(--ink-3);
+  --avatar-border-color: var(--surface-card);
+
+  /* Topbar */
+  --topbar-text-color: var(--ink-2);
+  --search-border-color: var(--line-strong);
+  --search-icon-color: var(--ink-4);
+  --input-focus-border-color: var(--accent);
+
+  /* Home page */
+  --post-list-text-color: var(--ink-3);
+  --btn-patinator-text-color: var(--ink-2);
+  --btn-paginator-hover-color: var(--surface-hover);
+
+  /* Posts */
+  --toc-highlight: var(--marker);
+  --toc-popup-border-color: var(--line-strong);
+  --btn-share-color: var(--ink-3);
+  --btn-share-hover-color: var(--accent);
+  --card-bg: var(--surface-card);
+  --card-hovor-bg: var(--surface-hover);  /* Chirpy 7.2.4 원본 오타 변수명 — 그대로 둘 것 */
+  --card-header-bg: var(--surface-sunken);
+  --card-shadow: 0 0 0 1px var(--line);
+  --footnote-target-bg: var(--marker-tint);
+  --tb-even-bg: var(--surface-card);
+  --tb-border-color: var(--line);
+  --dash-color: var(--line-strong);
+  --kbd-wrap-color: var(--line-control);
+  --kbd-text-color: var(--ink-2);
+  --kbd-bg-color: var(--surface-sunken);
+
+  /* Prompts (알림 박스) */
+  --prompt-text-color: var(--ink-2);
+  --prompt-tip-bg: var(--status-tip-bg);
+  --prompt-tip-icon-color: var(--status-tip);
+  --prompt-info-bg: var(--status-info-bg);
+  --prompt-info-icon-color: var(--status-info);
+  --prompt-warning-bg: var(--status-warning-bg);
+  --prompt-warning-icon-color: var(--status-warning);
+  --prompt-danger-bg: var(--status-danger-bg);
+  --prompt-danger-icon-color: var(--status-danger);
+
+  /* Tags */
+  --tag-border: var(--line);
+  --tag-hover: var(--surface-hover);
+  --search-tag-bg: var(--surface-sunken);
+
+  /* Categories */
+  --categories-border: var(--line);
+  --categories-hover-bg: var(--surface-hover);
+  --categories-icon-hover-color: var(--accent);
+
+  /* Code */
+  --language-border-color: var(--line);
+  --highlight-bg-color: var(--code-bg);
+  --highlighter-rouge-color: var(--ink-2);
+  --highlight-lineno-color: var(--ink-4);
+  --inline-code-bg: var(--surface-sunken);
+  --code-color: var(--ink-2);
+  --code-header-text-color: var(--ink-4);
+  --code-header-muted-color: var(--line);
+  --code-header-icon-color: var(--ink-4);
+  --clipboard-checked-color: var(--status-tip);
+  --filepath-text-color: var(--ink-2);
+
+  /* 라이트에서만 값이 다른 별칭 */
+  --topbar-bg: var(--surface-page);
+  --tb-odd-bg: var(--surface-page);
+  --tag-shadow: var(--line);
+  --img-bg: radial-gradient(circle, var(--surface-card) 0%, var(--surface-sunken) 100%);
   --shimmer-bg: linear-gradient(
     90deg,
-    rgba(244, 246, 244, 0) 0%,               /* 투명한 main-bg 톤 */
-    rgba(220, 222, 220, 1) 50%,              /* 회녹 흐림 효과 */
+    rgba(244, 246, 244, 0) 0%,
+    rgba(220, 222, 220, 1) 50%,
     rgba(244, 246, 244, 0) 100%
   );
 
-  /* Sidebar */
-  --site-title-color: rgb(95, 105, 85);
-  --site-subtitle-color: rgb(115, 125, 105);
-  --sidebar-bg: rgb(238, 240, 238);
-  --sidebar-border-color: rgb(218, 222, 218);
-  --sidebar-muted-color: rgb(100, 105, 100);
-  --sidebar-active-color: rgb(40, 50, 40);
-  --sidebar-hover-bg: rgba(180, 190, 180, 0.25);
-  --sidebar-btn-bg: white;
-  --sidebar-btn-color: rgb(110, 110, 110);
-  --avatar-border-color: white;
-
-  /* Topbar */
-  --topbar-bg: rgb(240, 242, 240);  /* 중성회색 → sage 통일 */
-  --topbar-text-color: rgb(78, 78, 78);
-  --search-border-color: rgb(180, 184, 180);
-  --search-icon-color: rgb(140, 74, 50);  /* 테라코타 */
-  --input-focus-border-color: #b8b8b8;
-
-  /* Home page */
-  --post-list-text-color: dimgray;
-  --btn-patinator-text-color: #555555;
-  --btn-paginator-hover-color: var(--sidebar-bg);
-
-  /* Posts */
-  --toc-highlight: rgb(140, 74, 50);  /* #8C4A32  6.69:1 AA — 테라코타 강조 */
-  --toc-popup-border-color: rgb(210, 215, 210);
-  --btn-share-color: rgb(100, 100, 100);
-  --btn-share-hover-color: rgb(140, 74, 50);  /* 형광민트 2.40:1 FAIL → 테라코타 6.69:1 */
-  --card-bg: white;
-  --card-hovor-bg: rgb(232, 238, 232);  /* 너무 진해 카드 위 본문이 4.56까지 떨어지던 것 완화 */
-  --card-shadow: rgba(80, 80, 80, 0.05) 0 2px 6px 0,
-    rgba(190, 190, 190, 0.12) 0 0 0 1px;
-
-  --footnote-target-bg: rgb(245, 230, 222);  /* 테라코타 연한 톤 */
-
-  --tb-odd-bg: rgb(248, 250, 248);
-  --tb-border-color: rgb(220, 224, 220);
-
-  --dash-color: rgb(190, 192, 190);            /* 선명하지 않은 은은한 회녹 – 섹션 구분 */
-  --kbd-wrap-color: rgb(160, 165, 160);        /* kbd 테두리 – 진회녹 */
-  --kbd-text-color: rgb(50, 50, 50);           /* 어두운 회색 – 배경 대비 가독성 */
-  --kbd-bg-color: rgb(248, 248, 248);          /* 기본 밝은 배경 유지 */
-
-  /* Prompts - 공통 텍스트 */
-  --prompt-text-color: rgba(46, 46, 46, 0.77); /* 중간 회색, 배경 대비 확보 */
-
-  /* Prompts - 종류별 알림 */
-  --prompt-tip-bg: rgba(170, 230, 190, 0.25);  /* 연회녹 투명 배경 */
-  --prompt-tip-icon-color: rgb(65, 165, 95);   /* 중간 회녹 강조색 */
-
-  --prompt-info-bg: rgb(225, 245, 240);        /* 푸른 회녹 – 정보 느낌 */
-  --prompt-info-icon-color: rgb(70, 150, 160); /* 회색 섞인 청록색 아이콘 */
-
-  --prompt-warning-bg: rgb(255, 250, 225);     /* 연노랑-베이지 – 자연스러운 경고 */
-  --prompt-warning-icon-color: rgb(220, 140, 0); /* 주황과 황토의 중간 – 차분한 주의 색 */
-
-  --prompt-danger-bg: rgba(240, 210, 215, 0.56); /* 흐릿한 인디핑크 – 부드러운 경고 */
-  --prompt-danger-icon-color: rgb(190, 60, 50);  /* 짙은 붉은 갈색 – 회녹과 어울리는 경고색 */
-
-  /* Tags */
-  --tag-border: rgb(220, 224, 220);               /* 회녹 테두리 – 눈에 띄지 않게 자연스럽게 */
-  --tag-shadow: rgba(150, 160, 150, 0.3);         /* 부드러운 회녹 그림자 (기존 btn-border-color 기반) */
-  --tag-hover: rgb(232, 236, 232);                /* 살짝 강조되는 회녹 hover 배경 */
-  --search-tag-bg: rgb(245, 247, 245);            /* 거의 흰색에 가까운 회녹 – 백그라운드 일체화 */
-
-  /* Categories */
-  --categories-border: rgba(100, 110, 100, 0.15); /* 낮은 채도의 회녹 테두리 – 라이트 테마와 조화 */
-  --categories-hover-bg: rgb(210, 222, 210);      /* 연한 연회녹 – hover 강조 */
-  --categories-icon-hover-color: rgb(140, 74, 50);  /* 테라코타 */
-
-  /* Archive */
-  --timeline-color: rgba(90, 100, 90, 0.08);      /* 흐릿한 회녹 음영 – 배경과 조화롭고 구분 가능 */
-  --timeline-node-bg: rgb(180, 190, 190);         /* muted 회녹 – 노드가 떠보이지 않게 */
-  --timeline-year-dot-color: #ffffff;             /* 연도 점은 흰색 유지 (대비를 위해) */
-
-  /* --- Custom code light mode colors --- */
-  --language-border-color: rgb(210, 215, 210);         /* 회녹 테두리 – 사이드바 경계와 유사 */
-  --highlight-bg-color: rgb(236, 240, 236);            /* main-bg보다 살짝 진한 회녹 배경 */
-  --highlighter-rouge-color: rgb(47, 107, 84);  /* #2F6B54  6.26:1 — 4.37:1 미달이던 인라인 코드 색 개선 */
-  --highlight-lineno-color: rgb(160, 165, 160);        /* 흐릿한 회녹 회색 – 번호 텍스트 */
-
-  --inline-code-bg: rgba(160, 180, 160, 0.15);         /* 인라인 코드 – 연한 회녹 배경 */
-  --code-color: rgb(50, 60, 50);                       /* 코드 텍스트 – 어두운 회녹 (가독성 우선) */
-
-  --code-header-text-color: rgb(100, 105, 100);        /* 상단 파일명 – muted 회녹, 본문보다 눈에 띄지 않게 */
-  --code-header-muted-color: rgb(225, 230, 225);       /* 상단 헤더 배경/보더 – 전체 톤과 조화 */
-  --code-header-icon-color: rgb(150, 155, 150);        /* 복사 아이콘 등 – 중간 회녹 */
-
-  --clipboard-checked-color: #43c743;                  /* 그대로 유지 */
+  /* Archive (기록 페이지 개편 때 다시 정함) */
+  --timeline-color: var(--line);
+  --timeline-node-bg: var(--line-control);
+  --timeline-year-dot-color: var(--surface-card);
 
   [class^='prompt-'] {
-    --link-underline-color: rgb(219, 216, 216);
+    --link-underline-color: var(--line-strong);
   }
 
   .dark {

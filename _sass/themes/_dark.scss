@@ -1,33 +1,161 @@
 @mixin styles {
   color-scheme: dark;
 
-  /* Framework color */
-  --main-bg: rgb(26, 29, 27);                    /* sage 기미를 넣은 다크 바탕 */
-  --mask-bg: rgb(62, 68, 64);
-  --main-border-color: rgb(42, 47, 43);
+  /* ===== Design tokens (claude-md/ui-style-prd.md 6장). 라이트와 다크는 같은 토큰 집합을 가진다. ===== */
 
-  /* Common color */
-  --text-color: rgb(176, 179, 176);              /* 7.83:1 AAA */
-  --text-muted-color: rgb(142, 147, 142);        /* 5.43:1 — 기본 #868686은 카드 위 4.42로 AA 미달이라 상향 */
-  --text-muted-highlight-color: rgb(174, 178, 174);
-  --heading-color: rgb(204, 208, 204);
-  --label-color: rgb(167, 171, 167);
-  --blockquote-border-color: rgb(62, 68, 63);
-  --blockquote-text-color: rgb(142, 147, 142);
-  --link-color: rgb(127, 184, 157);              /* #7FB89D  7.48:1 AAA — 라이트 #2D6A4F의 다크 짝 */
-  --link-underline-color: rgb(70, 100, 85);
-  --button-bg: rgb(30, 34, 31);
-  --btn-border-color: rgb(46, 51, 47);
-  --btn-backtotop-color: var(--text-color);
-  --btn-backtotop-border-color: rgb(33, 36, 34);
-  --card-header-bg: rgb(41, 45, 42);
-  --checkbox-color: rgb(112, 120, 114);
-  --checkbox-checked-color: rgb(219, 149, 117);  /* 테라코타 — 라이트와 같은 역할 */
-  --img-bg: radial-gradient(
-    circle,
-    rgb(21, 24, 22) 0%,
-    rgb(31, 34, 32) 100%
-  );
+  /* Surfaces */
+  --surface-page: #121614;
+  --surface-card: #191e1b;
+  --surface-float: #212723;
+  --surface-sunken: #0e1210;
+  --surface-hover: #262c28;
+  --surface-pressed: #2a312d;
+  --code-bg: #0e1210;
+
+  /* Ink (text) */
+  --ink-1: #edf0ee;
+  --ink-2: #d6dbd8;
+  --ink-3: #b3bbb6;
+  --ink-4: #949c97;
+
+  /* Lines */
+  --line: rgba(237, 240, 238, 0.1);
+  --line-strong: rgba(237, 240, 238, 0.14);
+  --line-control: #6e7671;
+
+  /* Accent (sage) and marker (terracotta) */
+  --accent: #7fb89d;
+  --accent-underline: rgba(127, 184, 157, 0.45);
+  --accent-tint: #1f3a2d;
+  --marker: #db9575;
+  --marker-tint: color-mix(in srgb, #db9575 18%, var(--surface-card));
+
+  /* Status */
+  --status-tip: #7cc49a;
+  --status-info: #7fb7d4;
+  --status-warning: #d2b062;
+  --status-danger: #e68a82;
+  --status-tip-bg: color-mix(in srgb, var(--status-tip) 14%, var(--surface-card));
+  --status-info-bg: color-mix(in srgb, var(--status-info) 14%, var(--surface-card));
+  --status-warning-bg: color-mix(in srgb, var(--status-warning) 14%, var(--surface-card));
+  --status-danger-bg: color-mix(in srgb, var(--status-danger) 14%, var(--surface-card));
+
+  /* Misc */
+  --inverse-bg: #edf0ee;
+  --inverse-ink: #1c211e;
+  --diagram-plate: #f4f6f4;
+  --mark-bg: #7fb89d;
+  --mark-ink: #0f1a14;
+
+  /* Elevation: 다크에서는 그림자 대신 밝기와 테두리로 높이를 표현한다 */
+  --shadow-bar: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 2px 8px rgba(0, 0, 0, 0.35);
+  --shadow-float: inset 0 1px 0 rgba(255, 255, 255, 0.06), 0 8px 24px rgba(0, 0, 0, 0.45);
+
+  /* ===== Legacy Chirpy variables: 새 토큰의 별칭. 사용처를 토큰으로 옮긴 뒤 제거한다(PRD 6-1). ===== */
+
+  /* Framework */
+  --main-bg: var(--surface-page);
+  --mask-bg: var(--line-control);
+  --main-border-color: var(--line);
+
+  /* Text */
+  --text-color: var(--ink-2);
+  --text-muted-color: var(--ink-4);
+  --text-muted-highlight-color: var(--ink-3);
+  --heading-color: var(--ink-1);
+  --label-color: var(--ink-3);
+  --blockquote-border-color: var(--line-strong);
+  --blockquote-text-color: var(--ink-3);
+  --link-color: var(--accent);
+  --link-underline-color: var(--accent-underline);
+
+  /* Buttons and form controls */
+  --button-bg: var(--surface-card);
+  --btn-border-color: var(--line);
+  --btn-backtotop-color: var(--ink-3);
+  --btn-backtotop-border-color: var(--line);
+  --checkbox-color: var(--line-control);
+  --checkbox-checked-color: var(--marker);
+
+  /* Sidebar */
+  --site-title-color: var(--ink-1);
+  --site-subtitle-color: var(--ink-3);
+  --sidebar-bg: var(--surface-sunken);
+  --sidebar-border-color: var(--line);
+  --sidebar-muted-color: var(--ink-3);
+  --sidebar-active-color: var(--ink-1);
+  --sidebar-hover-bg: var(--surface-hover);
+  --sidebar-btn-bg: var(--surface-card);
+  --sidebar-btn-color: var(--ink-3);
+  --avatar-border-color: var(--surface-card);
+
+  /* Topbar */
+  --topbar-text-color: var(--ink-2);
+  --search-border-color: var(--line-strong);
+  --search-icon-color: var(--ink-4);
+  --input-focus-border-color: var(--accent);
+
+  /* Home page */
+  --post-list-text-color: var(--ink-3);
+  --btn-patinator-text-color: var(--ink-2);
+  --btn-paginator-hover-color: var(--surface-hover);
+
+  /* Posts */
+  --toc-highlight: var(--marker);
+  --toc-popup-border-color: var(--line-strong);
+  --btn-share-color: var(--ink-3);
+  --btn-share-hover-color: var(--accent);
+  --card-bg: var(--surface-card);
+  --card-hovor-bg: var(--surface-hover);  /* Chirpy 7.2.4 원본 오타 변수명 — 그대로 둘 것 */
+  --card-header-bg: var(--surface-sunken);
+  --card-shadow: 0 0 0 1px var(--line);
+  --footnote-target-bg: var(--marker-tint);
+  --tb-even-bg: var(--surface-card);
+  --tb-border-color: var(--line);
+  --dash-color: var(--line-strong);
+  --kbd-wrap-color: var(--line-control);
+  --kbd-text-color: var(--ink-2);
+  --kbd-bg-color: var(--surface-sunken);
+
+  /* Prompts (알림 박스) */
+  --prompt-text-color: var(--ink-2);
+  --prompt-tip-bg: var(--status-tip-bg);
+  --prompt-tip-icon-color: var(--status-tip);
+  --prompt-info-bg: var(--status-info-bg);
+  --prompt-info-icon-color: var(--status-info);
+  --prompt-warning-bg: var(--status-warning-bg);
+  --prompt-warning-icon-color: var(--status-warning);
+  --prompt-danger-bg: var(--status-danger-bg);
+  --prompt-danger-icon-color: var(--status-danger);
+
+  /* Tags */
+  --tag-border: var(--line);
+  --tag-hover: var(--surface-hover);
+  --search-tag-bg: var(--surface-sunken);
+
+  /* Categories */
+  --categories-border: var(--line);
+  --categories-hover-bg: var(--surface-hover);
+  --categories-icon-hover-color: var(--accent);
+
+  /* Code */
+  --language-border-color: var(--line);
+  --highlight-bg-color: var(--code-bg);
+  --highlighter-rouge-color: var(--ink-2);
+  --highlight-lineno-color: var(--ink-4);
+  --inline-code-bg: var(--surface-sunken);
+  --code-color: var(--ink-2);
+  --code-header-text-color: var(--ink-4);
+  --code-header-muted-color: var(--line);
+  --code-header-icon-color: var(--ink-4);
+  --clipboard-checked-color: var(--status-tip);
+  --filepath-text-color: var(--ink-2);
+
+  /* 다크에서만 값이 다른 별칭 */
+  --topbar-bg: rgba(18, 22, 20, 0.64);
+  --tb-odd-bg: var(--surface-hover);
+  --tag-shadow: var(--surface-card);
+  --img-bg: radial-gradient(circle, var(--surface-sunken) 0%, var(--surface-card) 100%);
   --shimmer-bg: linear-gradient(
     90deg,
     rgba(255, 255, 255, 0) 0%,
@@ -35,85 +163,10 @@
     rgba(255, 255, 255, 0) 100%
   );
 
-  /* Sidebar */
-  --site-title-color: rgb(128, 150, 134);        /* sage 기미 — 라이트의 rgb(95,105,85)와 대응 */
-  --site-subtitle-color: rgb(134, 140, 134);
-  --sidebar-bg: rgb(23, 26, 24);
-  --sidebar-border-color: rgb(38, 42, 39);
-  --sidebar-muted-color: rgb(134, 140, 134);
-  --sidebar-active-color: rgb(255, 255, 255, 0.95);
-  --sidebar-hover-bg: rgb(37, 42, 38);
-  --sidebar-btn-bg: rgb(35, 40, 36);
-  --sidebar-btn-color: rgb(120, 126, 120);
-  --avatar-border-color: rgb(206, 210, 206, 0.9);
-
-  /* Topbar */
-  --topbar-bg: rgb(26, 29, 27, 0.64);
-  --topbar-text-color: var(--text-color);
-  --search-border-color: rgb(53, 58, 54);
-  --search-icon-color: rgb(219, 149, 117);       /* 테라코타 */
-  --input-focus-border-color: rgb(110, 116, 111);
-
-  /* Home page */
-  --post-list-text-color: rgb(176, 179, 176);
-  --btn-patinator-text-color: var(--text-color);
-  --btn-paginator-hover-color: rgb(45, 50, 46);
-
-  /* Posts */
-  --toc-highlight: rgb(219, 149, 117);           /* #DB9575  6.93:1 — 라이트 #8C4A32의 다크 짝 */
-  --toc-popup-border-color: rgb(55, 60, 56);
-  --tag-hover: rgb(42, 54, 47);
-  --tb-odd-bg: rgb(37, 40, 38);
-  --tb-even-bg: rgb(30, 33, 31);
-  --tb-border-color: var(--tb-odd-bg);
-  --footnote-target-bg: rgb(107, 62, 42);        /* 인디고 → 테라코타 어두운 톤 */
-  --btn-share-color: rgb(108, 117, 110);
-  --btn-share-hover-color: rgb(219, 149, 117);   /* 테라코타 */
-  --card-bg: rgb(30, 34, 31);
-  --card-hovor-bg: rgb(56, 66, 59);              /* Chirpy 7.2.4 원본 오타 변수명 — 그대로 둘 것 */
-  --card-shadow: rgb(18, 21, 19, 0.72) 0 6px 18px 0,
-    rgb(135, 140, 135, 0.24) 0 0 0 1px;
-  --kbd-wrap-color: rgb(106, 112, 107);
-  --kbd-text-color: rgb(211, 215, 211);
-  --kbd-bg-color: rgb(36, 40, 37);
-  --prompt-text-color: rgb(214, 216, 213, 0.75);
-  --prompt-tip-bg: rgb(24, 58, 40, 0.64);
-  --prompt-tip-icon-color: rgb(90, 180, 130, 0.9);
-  --prompt-info-bg: rgb(10, 55, 62, 0.8);
-  --prompt-info-icon-color: rgb(70, 160, 175);
-  --prompt-warning-bg: rgb(88, 70, 12, 0.88);
-  --prompt-warning-icon-color: rgb(230, 165, 60, 0.9);
-  --prompt-danger-bg: rgb(88, 34, 20, 0.8);
-  --prompt-danger-icon-color: rgb(210, 90, 70);
-
-  /* Tags */
-  --tag-border: rgb(58, 72, 64);                 /* 청록 → sage 어두운 톤 */
-  --tag-shadow: rgb(30, 34, 31);
-  --dash-color: rgb(60, 66, 61);
-  --search-tag-bg: rgb(38, 42, 39);
-
-  /* Categories */
-  --categories-border: rgb(62, 68, 63, 0.5);
-  --categories-hover-bg: rgb(68, 76, 70);
-  --categories-icon-hover-color: rgb(219, 149, 117); /* 테라코타 */
-
-  /* Archive */
-  --timeline-node-bg: rgb(148, 156, 150);
-  --timeline-color: rgb(60, 66, 61);
-  --timeline-year-dot-color: var(--timeline-color);
-
-  /* Code highlight colors */
-  --language-border-color: rgb(43, 48, 44);
-  --highlight-bg-color: rgb(19, 21, 20);
-  --highlighter-rouge-color: rgb(168, 201, 184); /* #A8C9B8 — 연파랑 #c9def1 대체 */
-  --highlight-lineno-color: rgb(126, 132, 127);
-  --inline-code-bg: rgba(140, 180, 155, 0.1);
-  --code-color: rgb(176, 182, 177);
-  --code-header-text-color: rgb(106, 112, 107);
-  --code-header-muted-color: rgb(52, 57, 53);
-  --code-header-icon-color: rgb(86, 92, 87);
-  --clipboard-checked-color: rgb(43, 204, 43);
-  --filepath-text-color: rgb(200, 205, 200);
+  /* Archive (기록 페이지 개편 때 다시 정함) */
+  --timeline-color: var(--line-strong);
+  --timeline-node-bg: var(--ink-4);
+  --timeline-year-dot-color: var(--line-strong);
 
   .light {
     display: none;
