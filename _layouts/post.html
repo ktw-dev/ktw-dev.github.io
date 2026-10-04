@@ -28,11 +28,13 @@ script_includes:
         {% include datetime.html date=page.date tooltip=true lang=lang %}
       </span>
 
-      <!-- lastmod date -->
-      {% if page.last_modified_at and page.last_modified_at != page.date %}
+      <!-- last entry of front matter `updates`; the git-based last_modified_at is not shown -->
+      {% assign last_update = nil %}
+      {% if page.updates %}{% assign last_update = page.updates | sort: 'date' | last %}{% endif %}
+      {% if last_update.date %}
         <span>
           {{ site.data.locales[lang].post.updated }}
-          {% include datetime.html date=page.last_modified_at tooltip=true lang=lang %}
+          {% include datetime.html date=last_update.date tooltip=true lang=lang %}
         </span>
       {% endif %}
 

@@ -1,8 +1,11 @@
 ---
 title: "github 블로그: 카테고리와 태그 설정하기"
 date: 2025-02-25
-categories: [블로그, 설정]
+categories: [개발 노트, 블로그 구축]
 tags: [jekyll, front-matter, yaml]
+series: 블로그 구축
+series_order: 3
+description: Front Matter의 개념을 알아보고, 이를 이용해 글의 제목과 날짜, 카테고리, 태그를 설정하는 방법을 정리했다.
 ---
 
 > 자. 지금까지의 포스트를 읽은 당신은 jekyll chirpy 테마를 사용하기 위한 준비를 전부 마쳤다. <br> 

@@ -1,8 +1,9 @@
 ---
 title: "Gemini CLI + SuperGemini를 활용한 최강의 코드 어시스턴트와 함께 개발을 즐겨보자"
 date: 2025-08-13 00:00:00 +0900
-categories: [개발 도구, AI]
+categories: [AI 툴 활용, Gemini CLI]
 tags: [gemini-cli, supergemini, pipx, python]
+description: pip로 설치할 때 발생한 externally-managed-environment 오류를 pipx로 해결하고, Gemini CLI에 SuperGemini를 설치한 과정을 기록했다.
 ---
 
 `pip3 install SuperGemini                       < 127 ✘ < 12:03:52 ⨀`

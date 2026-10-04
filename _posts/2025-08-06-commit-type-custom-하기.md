@@ -1,8 +1,11 @@
 ---
 title: "commit type custom 하기"
 date: 2025-08-06 00:00:00 +0900
-categories: [블로그, 설정]
+categories: [개발 노트, 블로그 구축]
 tags: [git, commitlint, husky, conventional-commits]
+series: 블로그 구축
+series_order: 5
+description: Chirpy 테마에 기본으로 설정된 commitlint 규칙을 수정해서, 원하는 commit type으로 커밋할 수 있도록 바꿨다.
 ---
 
 > jekyll을 사용하다보면 조금 불편한 부분이 있다. <br>
