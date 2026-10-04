@@ -42,9 +42,24 @@
 
   <div class="sidebar-bottom d-flex flex-wrap  align-items-center w-100">
     {% unless site.theme_mode %}
-      <button type="button" class="btn btn-link nav-link" aria-label="Switch Mode" id="mode-toggle">
-        <i class="fas fa-adjust"></i>
-      </button>
+      <fieldset id="mode-toggle" class="theme-switch">
+        <legend class="theme-switch-legend">테마</legend>
+        <label class="theme-switch-option" title="라이트">
+          <input type="radio" name="theme-mode" value="light" autocomplete="off">
+          <i class="fas fa-sun" aria-hidden="true"></i>
+          <span class="theme-switch-text">라이트</span>
+        </label>
+        <label class="theme-switch-option" title="다크">
+          <input type="radio" name="theme-mode" value="dark" autocomplete="off">
+          <i class="fas fa-moon" aria-hidden="true"></i>
+          <span class="theme-switch-text">다크</span>
+        </label>
+        <label class="theme-switch-option" title="시스템 설정 따르기">
+          <input type="radio" name="theme-mode" value="system" autocomplete="off" checked>
+          <i class="fas fa-desktop" aria-hidden="true"></i>
+          <span class="theme-switch-text">시스템</span>
+        </label>
+      </fieldset>
 
       {% if site.data.contact.size > 0 %}
         <span class="icon-border"></span>

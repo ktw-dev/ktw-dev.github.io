@@ -1,6 +1,9 @@
 /**
  * Theme management class
  *
+ * Supports three preferences: light, dark and system (follows the OS).
+ * An explicit light/dark choice is kept in localStorage; no stored value means system.
+ *
  * To reduce flickering during page load, this script should be loaded synchronously.
  */
 class Theme {
@@ -15,6 +18,10 @@ class Theme {
 
   static get LIGHT() {
     return 'light';
+  }
+
+  static get SYSTEM() {
+    return 'system';
   }
 
   /**
@@ -38,20 +45,26 @@ class Theme {
     }
   }
 
-  static get #mode() {
-    return sessionStorage.getItem(this.#modeKey);
+  /**
+   * Gets the user's preference.
+   *
+   * @returns {string} 'light', 'dark' or 'system'
+   */
+  static get preference() {
+    return this.#hasMode ? this.#mode : this.SYSTEM;
   }
 
-  static get #isDarkMode() {
-    return this.#mode === this.DARK;
+  static get #mode() {
+    try {
+      const mode = localStorage.getItem(this.#modeKey);
+      return mode === this.DARK || mode === this.LIGHT ? mode : null;
+    } catch {
+      return null;
+    }
   }
 
   static get #hasMode() {
     return this.#mode !== null;
-  }
-
-  static get #isComfortGreenMode() {
-    return this.#mode === this.COMFORT_GREEN
   }
 
   static get #sysDark() {
@@ -62,14 +75,12 @@ class Theme {
    * Maps theme modes to provided values
    * @param {string} light Value for light mode
    * @param {string} dark Value for dark mode
-   * @param {string} comfortGreen Value for Comfort Green mode
    * @returns {Object} Mapped values
    */
-  static getThemeMapper(light, dark, comfortGreen) {
+  static getThemeMapper(light, dark) {
     return {
       [this.LIGHT]: light,
-      [this.DARK]: dark,
-      [this.COMFORT_GREEN]: comfortGreen
+      [this.DARK]: dark
     };
   }
 
@@ -81,64 +92,75 @@ class Theme {
       return;
     }
 
-    this.#darkMedia.addEventListener('change', () => {
-      const lastMode = this.#mode;
-      this.#clearMode();
+    // Older versions stored the mode per session; drop it so it cannot shadow the new preference
+    try {
+      sessionStorage.removeItem(this.#modeKey);
+    } catch {
+      // storage may be unavailable (e.g. blocked site data)
+    }
 
-      if (lastMode !== this.visualState) {
+    this.#darkMedia.addEventListener('change', () => {
+      if (!this.#hasMode) {
         this.#notify();
       }
     });
 
-    if (!this.#hasMode) {
-      return;
-    }
-
-    if (this.#isDarkMode) {
-      this.#setDark();
-    } else if (this.#isComfortGreenMode) {
-      this.#setComfortGreen();
-    } else {
-      this.#setLight();
+    if (this.#hasMode) {
+      this.#apply(this.#mode);
     }
   }
 
   /**
-   * Flips the current theme mode
+   * Sets the theme preference
+   * @param {string} preference 'light', 'dark' or 'system'
+   */
+  static set(preference) {
+    if (!this.switchable) {
+      return;
+    }
+
+    const lastState = this.visualState;
+
+    if (preference === this.LIGHT || preference === this.DARK) {
+      this.#apply(preference);
+      this.#store(preference);
+    } else {
+      document.documentElement.removeAttribute(this.#modeAttr);
+      this.#store(null);
+    }
+
+    if (lastState !== this.visualState) {
+      this.#notify();
+    }
+  }
+
+  /**
+   * Cycles the preference: system → light → dark → system
    */
   static flip() {
-    const currentMode = this.visualState;
+    const next = {
+      [this.SYSTEM]: this.LIGHT,
+      [this.LIGHT]: this.DARK,
+      [this.DARK]: this.SYSTEM
+    };
 
-    if (currentMode === this.LIGHT) {
-      this.#setDark();
-    } else if (currentMode === this.DARK) {
-      this.#setComfortGreen(); // Dark to ComfortGreen
-    } else if (currentMode === this.COMFORT_GREEN) {
-      this.#setLight(); // ComfortGreen to Light
-    } else {
-      this.#sysDark ? this.#setLight() : this.#setDark();
+    this.set(next[this.preference]);
+  }
+
+  static #apply(mode) {
+    document.documentElement.setAttribute(this.#modeAttr, mode);
+  }
+
+  static #store(mode) {
+    try {
+      if (mode === null) {
+        localStorage.removeItem(this.#modeKey);
+      } else {
+        localStorage.setItem(this.#modeKey, mode);
+      }
+    } catch {
+      // the preference still applies to the current page
     }
-    this.#notify();
-  }
-
-  static #setDark() {
-    document.documentElement.setAttribute(this.#modeAttr, this.DARK);
-    sessionStorage.setItem(this.#modeKey, this.DARK);
-  }
-
-  static #setLight() {
-    document.documentElement.setAttribute(this.#modeAttr, this.LIGHT);
-    sessionStorage.setItem(this.#modeKey, this.LIGHT);
-  }
-
-  static #setComfortGreen() {
-    document.documentElement.setAttribute(this.#modeAttr, this.COMFORT_GREEN);
-    sessionStorage.setItem(this.#modeKey, this.COMFORT_GREEN)
-  }
-
-  static #clearMode() {
-    document.documentElement.removeAttribute(this.#modeAttr);
-    sessionStorage.removeItem(this.#modeKey);
   }
 
   /**
