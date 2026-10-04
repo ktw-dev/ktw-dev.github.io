@@ -135,9 +135,9 @@ assets:
     env: # [development | production]
 
 pwa:
-  enabled: true # The option for PWA feature (installable)
+  enabled: false # PWA 종료(2026-10). 설치 메뉴, 갱신 토스트, app.min.js를 내보내지 않는다.
   cache:
-    enabled: true # The option for PWA offline cache
+    enabled: false # 반드시 false로 둔다. 기존 방문자의 서비스 워커가 캐시를 지우고 통과만 하도록 바꾸는 값이다. sw.min.js와 swconf.js도 지우지 말 것.
     # Paths defined here will be excluded from the PWA cache.
     # Usually its value is the `baseurl` of another website that
     # shares the same domain name as the current website.
