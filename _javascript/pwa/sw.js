@@ -27,6 +27,9 @@ function verifyUrl(url) {
 
 self.addEventListener('install', (event) => {
   if (purge) {
+    // PWA is turned off: take over right away instead of waiting for every tab to close,
+    // because the toast that used to send SKIP_WAITING is no longer rendered.
+    self.skipWaiting();
     return;
   }
 
@@ -38,16 +41,28 @@ self.addEventListener('install', (event) => {
 });
 
 self.addEventListener('activate', (event) => {
+  if (purge) {
+    // Drop every cache, remove this worker, and reload open pages so they get fresh assets.
+    event.waitUntil(
+      caches
+        .keys()
+        .then((keyList) => Promise.all(keyList.map((key) => caches.delete(key))))
+        .then(() => self.clients.claim())
+        .then(() => self.registration.unregister())
+        .then(() => self.clients.matchAll({ type: 'window' }))
+        .then((clients) => {
+          clients.forEach((client) => client.navigate(client.url));
+        })
+    );
+    return;
+  }
+
   event.waitUntil(
     caches.keys().then((keyList) => {
       return Promise.all(
         keyList.map((key) => {
-          if (purge) {
+          if (key !== swconf.cacheName) {
             return caches.delete(key);
-          } else {
-            if (key !== swconf.cacheName) {
-              return caches.delete(key);
-            }
           }
         })
       );
@@ -62,7 +77,7 @@ self.addEventListener('message', (event) => {
 });
 
 self.addEventListener('fetch', (event) => {
-  if (event.request.headers.has('range')) {
+  if (purge || event.request.headers.has('range')) {
     return;
   }
 
