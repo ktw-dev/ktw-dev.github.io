@@ -147,7 +147,7 @@ main {
       cursor: zoom-in;
     }
 
-    &:not(.img-link) {
+    &:not([class]) {
       @extend %link-underline;
 
       &:hover {
@@ -344,12 +344,12 @@ main {
 /* Overwrite bootstrap outline button */
 .btn.btn-outline-primary {
   &:not(.disabled):hover {
-    border-color: #007bff !important;
+    border-color: var(--accent) !important;
   }
 }
 
 .disabled {
-  color: rgb(206, 196, 196);
+  color: var(--ink-4);
   pointer-events: auto;
   cursor: not-allowed;
 }

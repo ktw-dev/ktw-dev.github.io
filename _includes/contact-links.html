@@ -1,0 +1,43 @@
+<!--
+  Contact links from _data/contact.yml, shared by the '⋯' panel and the footer.
+  include.variant: 'panel' (rows with icon, name and ↗) or 'footer' (inline links)
+-->
+{% for entry in site.data.contact %}
+  {% assign url = nil %}
+  {% case entry.type %}
+    {% when 'github', 'twitter' %}
+      {%- capture url -%}https://{{ entry.type }}.com/{{ site[entry.type].username }}{%- endcapture -%}
+    {% when 'email' %}
+      {% assign email = site.social.email | split: '@' %}
+      {%- capture url -%}javascript:location.href = 'mailto:' + ['{{ email[0] }}','{{ email[1] }}'].join('@'){%- endcapture -%}
+    {% when 'rss' %}
+      {% assign url = '/feed.xml' | relative_url %}
+    {% else %}
+      {% assign url = entry.url %}
+  {% endcase %}
+
+  {% case entry.type %}
+    {% when 'github' %}{% assign name = 'GitHub' %}
+    {% when 'instagram' %}{% assign name = 'Instagram' %}
+    {% when 'email' %}{% assign name = '이메일' %}
+    {% when 'linkedin' %}{% assign name = 'LinkedIn' %}
+    {% else %}{% assign name = entry.type | capitalize %}
+  {% endcase %}
+
+  {% if url %}
+    <li>
+      <a
+        href="{{ url }}"
+        {% if include.variant == 'panel' %}class="panel-link"{% endif %}
+        {% unless entry.noblank %}target="_blank" rel="noopener noreferrer"{% endunless %}
+      >
+        <i class="{{ entry.icon }}" aria-hidden="true"></i>
+        <span>{{ name }}</span>
+        {% unless entry.noblank %}
+          {% if include.variant == 'panel' %}<span class="panel-link-ext" aria-hidden="true">↗</span>{% endif %}
+          <span class="sr-only">(새 창)</span>
+        {% endunless %}
+      </a>
+    </li>
+  {% endif %}
+{% endfor %}

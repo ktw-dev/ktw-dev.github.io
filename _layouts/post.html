@@ -3,9 +3,6 @@ layout: default
 refactor: true
 panel_includes:
   - toc
-tail_includes:
-  - related-posts
-  - post-nav
 script_includes:
   - comment
 ---
@@ -15,90 +12,25 @@ script_includes:
 {% include toc-status.html %}
 
 <article class="px-1" data-toc="{{ enable_toc }}">
-  <header>
+  <header class="post-head">
+    {% include meta-line.html post=page %}
     <h1 data-toc-skip>{{ page.title }}</h1>
-    {% if page.description %}
-      <p class="post-desc fw-light mb-4">{{ page.description }}</p>
-    {% endif %}
 
-    <div class="post-meta text-muted">
-      <!-- published date -->
-      <span>
-        {{ site.data.locales[lang].post.posted }}
-        {% include datetime.html date=page.date tooltip=true lang=lang %}
-      </span>
-
-      <!-- last entry of front matter `updates`; the git-based last_modified_at is not shown -->
-      {% assign last_update = nil %}
-      {% if page.updates %}{% assign last_update = page.updates | sort: 'date' | last %}{% endif %}
-      {% if last_update.date %}
-        <span>
-          {{ site.data.locales[lang].post.updated }}
-          {% include datetime.html date=last_update.date tooltip=true lang=lang %}
-        </span>
-      {% endif %}
-
-      {% if page.image %}
-        {% capture src %}src="{{ page.image.path | default: page.image }}"{% endcapture %}
-        {% capture class %}class="preview-img{% if page.image.no_bg %}{{ ' no-bg' }}{% endif %}"{% endcapture %}
-        {% capture alt %}alt="{{ page.image.alt | xml_escape | default: "Preview Image" }}"{% endcapture %}
-
-        {% if page.image.lqip %}
-          {%- capture lqip -%}lqip="{{ page.image.lqip }}"{%- endcapture -%}
-        {% endif %}
-
-        <div class="mt-3 mb-3">
-          <img {{ src }} {{ class }} {{ alt }} w="1200" h="630" {{ lqip }}>
-          {%- if page.image.alt -%}
-            <figcaption class="text-center pt-2 pb-2">{{ page.image.alt }}</figcaption>
-          {%- endif -%}
-        </div>
-      {% endif %}
-
-      <div class="d-flex justify-content-between">
-        <!-- author(s) -->
-        <span>
-          {% if page.author %}
-            {% assign authors = page.author %}
-          {% elsif page.authors %}
-            {% assign authors = page.authors %}
-          {% endif %}
-
-          {{ site.data.locales[lang].post.written_by }}
-
-          <em>
-            {% if authors %}
-              {% for author in authors %}
-                {% if site.data.authors[author].url -%}
-                  <a href="{{ site.data.authors[author].url }}">{{ site.data.authors[author].name }}</a>
-                {%- else -%}
-                  {{ site.data.authors[author].name }}
-                {%- endif %}
-                {% unless forloop.last %}{{ '</em>, <em>' }}{% endunless %}
-              {% endfor %}
-            {% else %}
-              <a href="{{ site.social.links[0] }}">{{ site.social.name }}</a>
-            {% endif %}
-          </em>
-        </span>
-
-        <div>
-          <!-- pageviews -->
-          {% if site.pageviews.provider and site.analytics[site.pageviews.provider].id %}
-            <span>
-              <em id="pageviews">
-                <i class="fas fa-spinner fa-spin small"></i>
-              </em>
-              {{ site.data.locales[lang].post.pageview_measure }}
-            </span>
-          {% endif %}
-
-          <!-- read time -->
-          {% include read-time.html content=content prompt=true lang=lang %}
-        </div>
-      </div>
-    </div>
+    {% assign last_update = nil %}
+    {% if page.updates %}{% assign last_update = page.updates | sort: 'date' | last %}{% endif %}
+    <p class="meta meta-dateline">
+      {%- if page.format == 'memo' -%}<span class="label-memo">메모</span>{%- endif -%}
+      <time class="meta-date" datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%Y.%m.%d' }}</time>
+      <span class="meta-sep" aria-hidden="true">·</span>
+      <span>{% include read-minutes.html content=content %}분</span>
+      {%- if last_update.date -%}
+        <span class="meta-sep meta-upd-sep" aria-hidden="true">·</span>
+        <span class="meta-upd">덧붙임 <time class="meta-date" datetime="{{ last_update.date | date_to_xmlschema }}">{{ last_update.date | date: '%Y.%m.%d' }}</time></span>
+      {%- endif -%}
+    </p>
   </header>
+
+  {% include series-box.html %}
 
   {% if enable_toc %}
     <div id="toc-bar" class="d-flex align-items-center justify-content-between invisible">
@@ -128,39 +60,19 @@ script_includes:
     {{ content }}
   </div>
 
-  <div class="post-tail-wrapper text-muted">
-    <!-- categories -->
-    {% if page.categories.size > 0 %}
-      <div class="post-meta mb-3">
-        <i class="far fa-folder-open fa-fw me-1"></i>
-        {% for category in page.categories %}
-          <a href="{{ site.baseurl }}/categories/{{ category | slugify | url_encode }}/">{{ category }}</a>
-          {%- unless forloop.last -%},{%- endunless -%}
-        {% endfor %}
-      </div>
-    {% endif %}
+  <div class="post-tail-wrapper">
+    {% include post-nav.html lang=lang %}
+    {% include related-posts.html lang=lang %}
 
-    <!-- tags -->
     {% if page.tags.size > 0 %}
-      <div class="post-tags">
-        <i class="fa fa-tags fa-fw me-1"></i>
+      <div class="post-tags" aria-label="태그">
         {% for tag in page.tags %}
-          <a
-            href="{{ site.baseurl }}/tags/{{ tag | slugify | url_encode }}/"
-            class="post-tag no-text-decoration"
-          >
-            {{- tag -}}
-          </a>
+          <a class="meta-tag" href="{{ site.baseurl }}/tags/{{ tag | slugify | url_encode }}/">{{ tag }}</a>
         {% endfor %}
       </div>
     {% endif %}
 
-    <div
-      class="
-        post-tail-bottom
-        d-flex justify-content-between align-items-center mt-5 pb-2
-      "
-    >
+    <div class="post-tail-bottom">
       <div class="license-wrapper">
         {% if site.data.locales[lang].copyright.license.template %}
           {% capture _replacement %}
@@ -175,7 +87,6 @@ script_includes:
 
       {% include post-sharing.html lang=lang %}
     </div>
-    <!-- .post-tail-bottom -->
   </div>
   <!-- div.post-tail-wrapper -->
 </article>

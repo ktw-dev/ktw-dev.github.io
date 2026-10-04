@@ -1,35 +1,93 @@
 ---
 layout: page
-# The Archives of posts.
+# 기록: every post on one timeline, with an axis filter and a tag index.
+# (claude-md/ui-components.md 「통합 글 목록 '기록'」)
 ---
 
 {% include lang.html %}
 
-{% assign df_strftime_m = site.data.locales[lang].df.archives.strftime | default: '/ %m' %}
-{% assign df_dayjs_m = site.data.locales[lang].df.archives.dayjs | default: '/ MM' %}
+{% assign posts = site.posts | where_exp: 'item', 'item.hidden != true' %}
 
-<div id="archives" class="pl-xl-3">
-  {% for post in site.posts %}
-    {% assign cur_year = post.date | date: '%Y' %}
+{% comment %} axes that have at least one post; empty axes stay hidden {% endcomment %}
+{% assign shown_axes = '' | split: '' %}
+{% for axis in site.data.axes %}
+  {% assign axis_posts = posts | where_exp: 'item', 'item.categories[0] == axis.name' %}
+  {% if axis_posts.size > 0 %}
+    {% assign shown_axes = shown_axes | push: axis %}
+  {% endif %}
+{% endfor %}
 
-    {% if cur_year != last_year %}
-      {% unless forloop.first %}</ul>{% endunless %}
+<style>
+  {% for axis in shown_axes %}
+    .rec:has(#{{ axis.id }}:target) .rec-row:not([data-axis='{{ axis.id }}']),
+    .rec:has(#{{ axis.id }}:target) .rec-year:not(:has([data-axis='{{ axis.id }}'])) {
+      display: none;
+    }
 
-      <time class="year lead d-block">{{ cur_year }}</time>
-      {{ '<ul class="list-unstyled">' }}
+    .rec:has(#{{ axis.id }}:target) .rec-intro[data-axis='{{ axis.id }}'] {
+      display: block;
+    }
 
-      {% assign last_year = cur_year %}
-    {% endif %}
-
-    <li>
-      {% assign ts = post.date | date: '%s' %}
-      <span class="date day" data-ts="{{ ts }}" data-df="DD">{{ post.date | date: '%d' }}</span>
-      <span class="date month small text-muted ms-1" data-ts="{{ ts }}" data-df="{{ df_dayjs_m }}">
-        {{ post.date | date: df_strftime_m }}
-      </span>
-      <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-    </li>
-
-    {% if forloop.last %}</ul>{% endif %}
+    .rec:has(#{{ axis.id }}:target) .chip-filter[href='#{{ axis.id }}'] {
+      border-color: var(--accent-tint);
+      background-color: var(--accent-tint);
+      color: var(--ink-1);
+      font-weight: 600;
+    }
   {% endfor %}
+</style>
+
+<div class="rec">
+  <span id="all" class="rec-target"></span>
+  {% for axis in shown_axes %}
+    <span id="{{ axis.id }}" class="rec-target"></span>
+  {% endfor %}
+
+  <nav class="rec-filter" aria-label="축으로 거르기">
+    <a class="chip-filter" href="#all">전체<sup>{{ posts.size }}</sup></a>
+    {% for axis in shown_axes %}
+      {% assign axis_posts = posts | where_exp: 'item', 'item.categories[0] == axis.name' %}
+      <a class="chip-filter" href="#{{ axis.id }}">{{ axis.name }}<sup>{{ axis_posts.size }}</sup></a>
+    {% endfor %}
+  </nav>
+
+  {% for axis in shown_axes %}
+    <p class="rec-intro" data-axis="{{ axis.id }}">{{ axis.intro }}</p>
+  {% endfor %}
+
+  {% assign by_year = posts | group_by_exp: 'item', "item.date | date: '%Y'" %}
+  {% for year in by_year %}
+    <section class="rec-year">
+      <h2>{{ year.name }}<sup>{{ year.items.size }}</sup></h2>
+
+      {% for post in year.items %}
+        {% assign axis = site.data.axes | where: 'name', post.categories[0] | first %}
+        <article class="rec-row" data-axis="{{ axis.id }}">
+          <time class="rec-date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%m.%d' }}</time>
+          <div>
+            <a class="rec-title" href="{{ post.url | relative_url }}">{{ post.title }}</a>
+            {%- if post.format == 'memo' -%}<span class="label-memo">메모</span>{%- endif -%}
+            {% include meta-line.html post=post %}
+          </div>
+        </article>
+      {% endfor %}
+    </section>
+  {% endfor %}
+
+  {% assign tag_names = '' | split: '' %}
+  {% for tag in site.tags %}
+    {% assign tag_names = tag_names | push: tag[0] %}
+  {% endfor %}
+  {% assign tag_names = tag_names | sort_natural %}
+
+  {% if tag_names.size > 0 %}
+    <section class="rec-tags" aria-label="태그">
+      <h2>태그</h2>
+      <div>
+        {% for tag in tag_names %}
+          <a class="meta-tag" href="{{ site.baseurl }}/tags/{{ tag | slugify | url_encode }}/">{{ tag }}</a>
+        {% endfor %}
+      </div>
+    </section>
+  {% endif %}
 </div>

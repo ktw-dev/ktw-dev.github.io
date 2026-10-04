@@ -1,0 +1,91 @@
+/* =========================================================
+   KTW layer: tokens that do not change between light and dark,
+   page-wide behavior, and accessibility defaults.
+   Color tokens live in _sass/themes/ (claude-md/ui-style-prd.md 6장).
+   ========================================================= */
+
+:root {
+  --font-mono: ui-monospace, sfmono-regular, menlo, consolas, 'Liberation Mono', monospace;
+
+  /* radius: four fixed roles */
+  --radius-s: 4px; /* labels, kbd, inline code */
+  --radius-m: 8px; /* boxes, code blocks, images, buttons */
+  --radius-l: 16px; /* floating surfaces */
+  --radius-pill: 999px; /* bar, selected state, segments */
+
+  /* spacing: 4px base */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+
+  /* motion */
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --dur-fast: 120ms;
+  --dur-base: 180ms;
+  --dur-slow: 280ms;
+  --dur-theme: 200ms;
+
+  /* layout */
+  --col-w: 760px; /* reading column */
+  --toc-w: 220px;
+  --layout-w: var(--col-w);
+  --bar-h: 48px;
+  --bar-gap: 12px;
+  --gutter: 16px;
+
+  @media (max-width: 849px) {
+    --bar-gap: 8px;
+  }
+}
+
+/* posts with a table of contents use a wider grid on large screens */
+@media (min-width: 1200px) {
+  body.with-toc {
+    --layout-w: calc(var(--col-w) + var(--space-7) + var(--toc-w));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 0ms;
+    --dur-base: 0ms;
+    --dur-slow: 0ms;
+    --dur-theme: 0ms;
+  }
+}
+
+html {
+  scroll-padding-top: calc(var(--bar-h) + var(--bar-gap) * 2 + 8px);
+}
+
+body {
+  transition:
+    background-color var(--dur-theme) ease,
+    color var(--dur-theme) ease;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* hide visually, keep for screen readers */
+.sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* #mask was the sidebar overlay; the panel is a popover now */
+#mask {
+  display: none !important;
+}

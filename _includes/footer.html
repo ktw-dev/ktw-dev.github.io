@@ -1,49 +1,29 @@
-<!-- The Footer -->
+<!-- The Footer: one-line intro, contact links, copyright -->
 
-<footer
-  aria-label="Site Info"
-  class="
-    d-flex flex-column justify-content-center text-muted
-    flex-lg-row justify-content-lg-between align-items-lg-center pb-lg-3
-  "
->
+<footer class="site-foot" aria-label="Site Info">
+  <p class="foot-intro">{{ site.tagline }}</p>
+
+  {% if site.data.contact.size > 0 %}
+    <ul class="foot-links">
+      {% include contact-links.html variant='footer' %}
+    </ul>
+  {% endif %}
+
   <p>
     {{- '©' }}
     <time>{{ 'now' | date: '%Y' }}</time>
-
-    {% if site.social.links %}
-      <a href="{{ site.social.links[0] }}">{{ site.social.name }}</a>.
-    {% else %}
-      <em class="fst-normal">{{ site.social.name }}</em>.
-    {% endif %}
-
+    {{ site.social.name }}.
     {% if site.data.locales[include.lang].copyright.brief %}
-      <span
-        data-bs-toggle="tooltip"
-        data-bs-placement="top"
-        title="{{ site.data.locales[include.lang].copyright.verbose }}"
-      >
+      <span title="{{ site.data.locales[include.lang].copyright.verbose }}">
         {{- site.data.locales[include.lang].copyright.brief -}}
       </span>
     {% endif %}
-  </p>
-
-  <p>
     {%- capture _platform -%}
       <a href="https://jekyllrb.com" target="_blank" rel="noopener">Jekyll</a>
     {%- endcapture -%}
-
     {%- capture _theme -%}
-      <a
-        data-bs-toggle="tooltip"
-        data-bs-placement="top"
-        title="v{{ theme.version }}"
-        href="https://github.com/cotes2020/jekyll-theme-chirpy"
-        target="_blank"
-        rel="noopener"
-      >Chirpy</a>
+      <a href="https://github.com/cotes2020/jekyll-theme-chirpy" target="_blank" rel="noopener">Chirpy</a>
     {%- endcapture -%}
-
     {{ site.data.locales[include.lang].meta | replace: ':PLATFORM', _platform | replace: ':THEME', _theme }}
   </p>
 </footer>

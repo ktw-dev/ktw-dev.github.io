@@ -1,0 +1,183 @@
+/* =========================================================
+   Meta line, labels and post rows
+   (claude-md/ui-style-prd.md 5-2, 5-8, 7-4, 7-5)
+   Hierarchy: title(ink-1) > axis(ink-2, 600) > series(ink-3, 500)
+   > date · reading time · tags(ink-4)
+   ========================================================= */
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 0;
+  color: var(--ink-4);
+  font-size: 13px;
+  line-height: 1.5;
+
+  a {
+    color: inherit;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+      text-underline-offset: 3px;
+    }
+  }
+}
+
+.meta-axis {
+  position: relative;
+  z-index: 1;
+  color: var(--ink-2) !important;
+  font-weight: 600;
+}
+
+.meta-series {
+  color: var(--ink-3);
+  font-weight: 500;
+
+  b {
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.meta-sep {
+  padding: 0 0.4em;
+}
+
+.meta-date {
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+.meta-tag {
+  color: var(--ink-4);
+  font-size: 13px;
+  text-decoration: none;
+
+  &::before {
+    content: '#';
+  }
+
+  &:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}
+
+.label-memo {
+  display: inline-flex;
+  align-items: center;
+  height: 18px;
+  margin-left: 6px;
+  padding: 0 5px;
+  border: 1px solid var(--line-control);
+  border-radius: var(--radius-s);
+  color: var(--ink-3);
+  font-size: 11.5px;
+  font-weight: 500;
+  line-height: 1;
+  vertical-align: 0.15em;
+}
+
+/* ---------- home rows (소개형) ---------- */
+
+.home-head {
+  margin-bottom: var(--space-5);
+
+  h1 {
+    margin: 0 0 var(--space-1);
+    color: var(--ink-1);
+    font-size: 1.3125rem;
+    font-weight: 600;
+  }
+
+  p {
+    margin: 0;
+    color: var(--ink-3);
+    font-size: 15px;
+  }
+}
+
+#post-list.post-rows,
+.post-rows {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.post-row {
+  position: relative;
+  padding: var(--space-5) var(--space-3);
+  margin: 0 calc(var(--space-3) * -1);
+  border-top: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  transition: background-color var(--dur-fast) ease;
+
+  &:first-child {
+    border-top: 0;
+  }
+
+  &:hover {
+    background-color: var(--surface-hover);
+  }
+
+  &:hover + .post-row {
+    border-top-color: transparent;
+  }
+}
+
+.post-row-title {
+  margin: 6px 0 4px;
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.45;
+  word-break: keep-all;
+
+  a {
+    color: var(--ink-1);
+    text-decoration: none;
+
+    /* the whole row is clickable; links inside the meta line stay on top */
+    &::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+    }
+  }
+}
+
+.post-row:hover .post-row-title a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.post-row-desc {
+  display: -webkit-box;
+  margin: 0;
+  overflow: hidden;
+  color: var(--ink-3);
+  font-size: 15px;
+  line-height: 1.6;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  word-break: keep-all;
+}
+
+/* ---------- pagination ---------- */
+
+.pagination .page-link {
+  border-color: var(--line);
+  background: transparent;
+  color: var(--ink-3);
+}
+
+.pagination .page-item.active .page-link {
+  border-color: var(--accent-tint);
+  background-color: var(--accent-tint);
+  color: var(--ink-1);
+}

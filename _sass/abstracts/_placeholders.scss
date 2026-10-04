@@ -42,9 +42,10 @@
 }
 
 %link-hover {
-  color: #d2603a !important;
-  border-bottom: 1px solid #d2603a;
-  text-decoration: none;
+  /* hover keeps the color and thickens the underline (PRD 5-3) */
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
 }
 
 %link-color {
@@ -52,7 +53,10 @@
 }
 
 %link-underline {
-  border-bottom: 1px solid var(--link-underline-color);
+  text-decoration: underline;
+  text-decoration-color: var(--link-underline-color);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
 }
 
 %clickable-transition {
@@ -89,7 +93,7 @@
     font-style: normal;
     font-size: 80%;
     padding: 0;
-    color: #6d6c6c;
+    color: var(--ink-4);
   }
 }
 
@@ -138,7 +142,7 @@
 
 %btn-color {
   button i {
-    color: #999999;
+    color: var(--ink-3);
   }
 }
 

@@ -1,19 +1,22 @@
 #  Sharing options at the bottom of the post.
 #  Icons from <https://fontawesome.com/>
 
-platforms:
-  - type: Twitter
-    icon: "fa-brands fa-square-x-twitter"
-    link: "https://twitter.com/intent/tweet?text=TITLE&url=URL"
-
-  - type: Facebook
-    icon: "fab fa-facebook-square"
-    link: "https://www.facebook.com/sharer/sharer.php?title=TITLE&u=URL"
-
-  - type: Telegram
-    icon: "fab fa-telegram"
-    link: "https://t.me/share/url?url=URL&text=TITLE"
-
+platforms: []
+  # 공유 버튼은 링크 복사만 남긴다(claude-md/ui-components.md 「글 끝 영역 정리」).
+  # 다시 켜려면 위의 [] 를 지우고 아래 항목의 주석을 푼다.
+  #
+  # - type: Twitter
+  #   icon: "fa-brands fa-square-x-twitter"
+  #   link: "https://twitter.com/intent/tweet?text=TITLE&url=URL"
+  #
+  # - type: Facebook
+  #   icon: "fab fa-facebook-square"
+  #   link: "https://www.facebook.com/sharer/sharer.php?title=TITLE&u=URL"
+  #
+  # - type: Telegram
+  #   icon: "fab fa-telegram"
+  #   link: "https://t.me/share/url?url=URL&text=TITLE"
+  #
   # Uncomment below if you need to.
   #
   # - type: Linkedin

@@ -1,0 +1,33 @@
+{%- comment -%}
+  Meta line: 축 · 시리즈 회차 [· 날짜] [· 읽기 시간]   (claude-md/ui-style-prd.md 5-2, 7-4)
+  include.post      the post (or page)
+  include.date      true to append the date
+  include.readtime  true to append the reading time
+  include.tag       element name, default 'p'
+{%- endcomment -%}
+{%- assign _p = include.post -%}
+{%- assign _tag = include.tag | default: 'p' -%}
+{%- assign _axis = site.data.axes | where: 'name', _p.categories[0] | first -%}
+{%- assign _sep = '<span class="meta-sep" aria-hidden="true">·</span>' -%}
+{%- assign _first = true -%}
+<{{ _tag }} class="meta">
+  {%- if _axis -%}
+    <a class="meta-axis" href="{{ '/archives/' | relative_url }}#{{ _axis.id }}">{{ _axis.name }}</a>
+    {%- assign _first = false -%}
+  {%- endif -%}
+  {%- if _p.series -%}
+    {%- assign _series_posts = site.posts | where: 'series', _p.series -%}
+    {%- unless _first -%}{{ _sep }}{%- endunless -%}
+    <span class="meta-series">{{ _p.series }} <b>{{ _p.series_order }}/{{ _series_posts.size }}</b></span>
+    {%- assign _first = false -%}
+  {%- endif -%}
+  {%- if include.date -%}
+    {%- unless _first -%}{{ _sep }}{%- endunless -%}
+    <time class="meta-date" datetime="{{ _p.date | date_to_xmlschema }}">{{ _p.date | date: '%Y.%m.%d' }}</time>
+    {%- assign _first = false -%}
+  {%- endif -%}
+  {%- if include.readtime -%}
+    {%- unless _first -%}{{ _sep }}{%- endunless -%}
+    <span class="meta-read">{% include read-minutes.html content=_p.content %}분</span>
+  {%- endif -%}
+</{{ _tag }}>

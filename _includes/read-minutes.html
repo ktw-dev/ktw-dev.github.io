@@ -1,0 +1,5 @@
+{%- comment -%} Reading time in minutes, same rule as read-time.html (180 words per minute, at least 1). {%- endcomment -%}
+{%- assign _words = include.content | strip_html | number_of_words: 'auto' -%}
+{%- assign _minutes = _words | divided_by: 180 -%}
+{%- if _minutes < 1 -%}{%- assign _minutes = 1 -%}{%- endif -%}
+{{- _minutes -}}

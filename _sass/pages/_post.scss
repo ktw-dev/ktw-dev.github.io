@@ -132,8 +132,8 @@ header {
   --wc-stm-form-button-border: 1px solid var(--btn-border-color);
   --wc-stm-form-submit-background-color: var(--sidebar-btn-bg);
   --wc-stm-form-cancel-background-color: var(--sidebar-btn-bg);
-  --wc-stm-form-button-background-color-hover: #007bff;
-  --wc-stm-form-button-color-hover: white;
+  --wc-stm-form-button-background-color-hover: var(--accent);
+  --wc-stm-form-button-color-hover: var(--surface-card);
 
   font-size: 1rem;
 }
@@ -175,7 +175,7 @@ header {
       pointer-events: auto;
       cursor: not-allowed;
       background: none;
-      color: gray;
+      color: var(--ink-4);
     }
 
     &.btn-outline-primary.disabled:focus {

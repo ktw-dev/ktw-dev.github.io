@@ -1,0 +1,155 @@
+/* =========================================================
+   Reading text and in-body boxes
+   (claude-md/ui-style-prd.md 5-4, 5-5, 5-6, 7-6)
+   Heading sizes and weights live in assets/css/jekyll-theme-chirpy.scss
+   because that file is compiled after this layer.
+   ========================================================= */
+
+.content {
+  font-size: 1.0625rem; /* 17px */
+  line-height: 1.75;
+  color: var(--ink-2);
+}
+
+code,
+kbd,
+pre,
+samp {
+  font-family: var(--font-mono);
+}
+
+/* inline code: neutral, so it is never mistaken for a link */
+.content code.highlighter-rouge,
+.content :not(pre) > code {
+  padding: 0.1em 0.35em;
+  border-radius: var(--radius-s);
+  background-color: var(--surface-sunken);
+  color: var(--ink-2);
+  font-size: 0.88em;
+}
+
+/* links: always underlined, hover thickens the line (PRD 5-3) */
+.content a:not([class]) {
+  color: var(--accent);
+  text-decoration: underline;
+  text-decoration-color: var(--accent-underline);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  border-bottom: 0;
+
+  &:hover {
+    text-decoration-color: currentcolor;
+    text-decoration-thickness: 2px;
+  }
+}
+
+/* code blocks: one background for header and body */
+.content div[class^='language-'],
+.content .highlighter-rouge {
+  border-radius: var(--radius-m);
+}
+
+div[class^='language-'] {
+  border: 1px solid var(--line);
+  box-shadow: none;
+}
+
+.code-header {
+  border-bottom: 1px solid var(--line);
+}
+
+/* ---------- boxes inside the body share one rule set ---------- */
+
+%ktw-box {
+  margin: var(--space-5) 0;
+  padding: 14px 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  box-shadow: none;
+}
+
+%ktw-box-head {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--ink-3);
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+/* alert boxes keep Chirpy's prompt-* classes and icons */
+blockquote[class^='prompt-'] {
+  @extend %ktw-box;
+
+  padding-left: 3rem;
+  color: var(--ink-2);
+}
+
+/* prompt / AI answer / my note — written with kramdown IAL:
+   > ...
+   {: .chat-prompt }  or  {: .chat-ai data-tool="Claude" }  or  {: .chat-note } */
+blockquote.chat-prompt,
+blockquote.chat-ai,
+blockquote.chat-note {
+  @extend %ktw-box;
+
+  color: var(--ink-2);
+
+  &::before {
+    @extend %ktw-box-head;
+  }
+
+  > p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+blockquote.chat-prompt {
+  background-color: var(--surface-sunken);
+
+  &::before {
+    content: '프롬프트';
+  }
+}
+
+blockquote.chat-ai {
+  background-color: var(--surface-card);
+
+  &::before {
+    content: 'AI 응답';
+  }
+
+  &[data-tool]::before {
+    content: 'AI 응답 · ' attr(data-tool);
+  }
+}
+
+blockquote.chat-note {
+  border-left: 3px solid var(--accent);
+  background-color: var(--surface-card);
+
+  &::before {
+    content: '내 판단';
+  }
+}
+
+/* ---------- images (PRD 5-6) ---------- */
+
+.content img:not(.no-border) {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-m);
+}
+
+.content img:not(.no-dim) {
+  filter: brightness(var(--img-brightness));
+  transition: filter var(--dur-fast) ease;
+
+  &:hover {
+    filter: none;
+  }
+}
+
+.content img.diagram {
+  padding: 12px;
+  background-color: var(--diagram-plate);
+}

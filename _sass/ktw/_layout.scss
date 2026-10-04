@@ -1,0 +1,93 @@
+/* =========================================================
+   Page grid: one reading column (760px), plus a TOC column on
+   wide post pages. Replaces Chirpy's left sidebar offset.
+   Kept for the bundled JS: #main-wrapper > .container > .row
+   ========================================================= */
+
+#main-wrapper {
+  margin-left: 0;
+  transform: none;
+
+  /* lazy images sit off to the side until they load; clip keeps sticky children working */
+  overflow-x: clip;
+}
+
+#main-wrapper > .container {
+  width: min(var(--layout-w), 100% - var(--gutter) * 2);
+  max-width: none;
+  min-height: auto;
+  margin: 0 auto;
+  padding: 0;
+}
+
+#main-wrapper > .container > .layout-row {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  column-gap: var(--space-7);
+  margin: 0;
+
+  > * {
+    width: auto;
+    max-width: none;
+    padding: 0;
+  }
+}
+
+#main-wrapper > .container > .layout-row > main {
+  padding-top: var(--space-7);
+  padding-bottom: var(--space-6);
+}
+
+#panel-wrapper {
+  display: none;
+}
+
+@media (min-width: 1200px) {
+  body.with-toc #main-wrapper > .container > .layout-row:first-child {
+    grid-template-columns: minmax(0, var(--col-w)) var(--toc-w);
+  }
+
+  body.with-toc #panel-wrapper {
+    display: block;
+  }
+
+  body.with-toc #tail-wrapper {
+    max-width: var(--col-w);
+  }
+}
+
+#tail-wrapper > :not(script) {
+  margin-top: 0;
+}
+
+/* the mobile TOC bar sits under the sticky floating bar on medium screens */
+@media (min-width: 850px) {
+  #toc-bar {
+    top: calc(var(--bar-gap) + var(--bar-h) + 8px);
+  }
+}
+
+#back-to-top {
+  right: var(--gutter);
+  bottom: var(--space-5);
+  border-color: var(--line-strong);
+  background: var(--surface-float);
+  color: var(--ink-3);
+  box-shadow: var(--shadow-float);
+
+  @media (min-width: 1200px) {
+    right: max(var(--gutter), calc((100% - var(--layout-w)) / 2 - 64px));
+  }
+}
+
+/* search results replace the content rows inside the same column */
+#search-result-wrapper {
+  max-width: none;
+  padding-top: var(--space-6);
+
+  > .content {
+    width: 100%;
+    max-width: none;
+    flex: 1;
+  }
+}

@@ -1,19 +1,33 @@
-const ATTR_DISPLAY = 'sidebar-display';
+/**
+ * The '⋯' panel (#sidebar) opens as a popover from #sidebar-trigger.
+ * Browsers with the Popover API need no script; others get a plain toggle.
+ */
 const $sidebar = document.getElementById('sidebar');
 const $trigger = document.getElementById('sidebar-trigger');
-const $mask = document.getElementById('mask');
-
-class SidebarUtil {
-  static #isExpanded = false;
-
-  static toggle() {
-    this.#isExpanded = !this.#isExpanded;
-    document.body.toggleAttribute(ATTR_DISPLAY, this.#isExpanded);
-    $sidebar.classList.toggle('z-2', this.#isExpanded);
-    $mask.classList.toggle('d-none', !this.#isExpanded);
-  }
-}
 
 export function initSidebar() {
-  $trigger.onclick = $mask.onclick = () => SidebarUtil.toggle();
+  if (!$sidebar || !$trigger) {
+    return;
+  }
+
+  if (typeof $sidebar.showPopover === 'function') {
+    return;
+  }
+
+  $sidebar.removeAttribute('popover');
+  $sidebar.hidden = true;
+  $trigger.setAttribute('aria-expanded', 'false');
+
+  $trigger.addEventListener('click', () => {
+    $sidebar.hidden = !$sidebar.hidden;
+    $trigger.setAttribute('aria-expanded', String(!$sidebar.hidden));
+  });
+
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && !$sidebar.hidden) {
+      $sidebar.hidden = true;
+      $trigger.setAttribute('aria-expanded', 'false');
+      $trigger.focus();
+    }
+  });
 }

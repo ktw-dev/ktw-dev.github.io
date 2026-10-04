@@ -1,86 +1,208 @@
-@use '../abstracts/variables' as v;
-@use '../abstracts/mixins' as mx;
-@use '../abstracts/breakpoints' as bp;
-@use '../abstracts/placeholders';
+/* =========================================================
+   Floating bar (claude-md/ui-style-prd.md 7-1)
+   KTW mark | main nav (홈 · 기록 · About) | search | ⋯ panel trigger
+   IDs kept for the bundled JS: topbar-title, search, search-trigger,
+   search-input, search-cancel, sidebar-trigger.
+   ========================================================= */
 
 #topbar-wrapper {
-  height: v.$topbar-height;
-  background-color: var(--topbar-bg);
+  position: sticky;
+  top: var(--bar-gap);
+  z-index: 1030;
+  width: min(var(--layout-w), 100% - var(--gutter) * 2);
+  height: var(--bar-h);
+  margin: var(--bar-gap) auto 0;
+}
 
-  @include bp.lt(bp.get(lg)) {
-    @include mx.slide(top 0.2s ease);
-
-    left: 0;
+/* on narrow post pages the bar scrolls away and #toc-bar takes over the top */
+@media (max-width: 849px) {
+  body.is-post #topbar-wrapper {
+    position: relative;
+    top: 0;
   }
 }
 
 #topbar {
-  @extend %btn-color;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  height: 100%;
+  padding: 0 6px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background-color: color-mix(in srgb, var(--surface-card) 80%, transparent);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  box-shadow: var(--shadow-bar);
+}
 
-  #breadcrumb {
-    font-size: 1rem;
-    color: var(--text-muted-color);
-    padding-left: 0.5rem;
-
-    a:hover {
-      @extend %link-hover;
-    }
-
-    span {
-      &:not(:last-child) {
-        &::after {
-          content: '›';
-          padding: 0 0.3rem;
-        }
-      }
-    }
-
-    @include bp.lt(bp.get(lg)) {
-      display: none;
-    }
-
-    @include bp.between(bp.get(lg), calc(#{bp.get(xl)} - 1px)) {
-      width: 65%;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      word-break: keep-all;
-      white-space: nowrap;
-    }
-  }
-
-  @include bp.lte(bp.get(md)) {
-    @include mx.max-w-100;
-  }
-
-  @include bp.lt(bp.get(lg)) {
-    max-width: 100%;
+@media (prefers-reduced-transparency: reduce) {
+  #topbar {
+    background-color: var(--surface-card);
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
   }
 }
 
-#topbar-title {
-  display: none;
-  font-size: 1.1rem;
-  font-weight: 600;
-  font-family: sans-serif;
-  color: var(--topbar-text-color);
-  text-align: center;
-  width: 70%;
-  word-break: keep-all;
+.bar-mark {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  margin-right: 4px;
+  border-radius: var(--radius-pill);
+  text-decoration: none;
 
-  @include bp.lt(bp.get(lg)) {
-    display: block;
+  span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: var(--radius-m);
+    background-color: var(--mark-bg);
+    color: var(--mark-ink);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: -0.02em;
   }
 
-  @include bp.lg {
-    text-align: left;
+  @media (max-width: 339px) {
+    display: none;
   }
 }
 
-#sidebar-trigger,
-#search-trigger {
-  display: none;
+.bar-nav {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  margin-right: auto;
+}
 
-  @include bp.lt(bp.get(lg)) {
-    display: block;
+.bar-link {
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: var(--radius-pill);
+  color: var(--ink-3);
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color var(--dur-fast) ease;
+
+  &:hover {
+    background-color: var(--surface-hover);
+    color: var(--ink-1);
+  }
+
+  &[aria-current='page'] {
+    background-color: var(--accent-tint);
+    color: var(--ink-1);
+    font-weight: 600;
+  }
+}
+
+.bar-btn {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--ink-3);
+  font-size: 16px;
+  transition: background-color var(--dur-fast) ease;
+
+  &:hover {
+    background-color: var(--surface-hover);
+    color: var(--ink-1);
+  }
+}
+
+@media (max-width: 849px) {
+  .bar-link,
+  .bar-btn,
+  .bar-mark {
+    height: 44px;
+  }
+
+  .bar-btn,
+  .bar-mark {
+    width: 44px;
+  }
+
+  .bar-link {
+    padding: 0 10px;
+  }
+}
+
+/* search folds into an icon at every width (ui-components.md, header utilities) */
+#topbar #search {
+  display: none;
+  flex: 1;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  max-width: none;
+  height: 34px;
+  margin: 0 4px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: var(--radius-pill);
+  background: var(--surface-sunken);
+
+  i {
+    color: var(--ink-4);
+    font-size: 14px;
+  }
+
+  &.input-focus {
+    outline: 2px solid var(--accent);
+    outline-offset: 0;
+  }
+}
+
+#topbar #search-input {
+  flex: 1;
+  min-width: 0;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+  color: var(--ink-1);
+  font-size: 15px;
+
+  &::placeholder {
+    color: var(--ink-4);
+  }
+
+  &:focus {
+    outline: none;
+  }
+}
+
+#search-cancel {
+  display: none;
+  flex: none;
+  padding: 0 10px;
+  color: var(--accent);
+  font-size: 15px;
+  white-space: nowrap;
+}
+
+/* while the search field is open, give it the room of the nav links */
+#topbar:has(#search.d-flex) {
+  .bar-nav,
+  .bar-mark {
+    display: none;
   }
 }

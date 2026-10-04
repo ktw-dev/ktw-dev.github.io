@@ -2,7 +2,7 @@
 @use '../abstracts/placeholders';
 
 %-category-icon-color {
-  color: gray;
+  color: var(--ink-3);
 }
 
 .categories {
@@ -54,7 +54,7 @@
   height: 1.7rem;
   border-radius: 50%;
   text-align: center;
-  color: #6c757d !important;
+  color: var(--ink-3) !important;
 
   i {
     position: relative;

@@ -243,10 +243,10 @@ div {
     }
 
     &:not([timeout]):hover {
-      background-color: rgba(128, 128, 128, 0.37);
+      background-color: var(--surface-hover);
 
       i {
-        color: white;
+        color: var(--ink-1);
       }
     }
   }

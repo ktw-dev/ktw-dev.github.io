@@ -1,0 +1,23 @@
+{%- comment -%}
+  Series box (claude-md/ui-style-prd.md 7-6): a <details> list of every part,
+  with the current part marked by the terracotta bar.
+{%- endcomment -%}
+{% if page.series %}
+  {% assign _parts = site.posts | where: 'series', page.series | sort: 'series_order' %}
+  {% if _parts.size > 1 %}
+    <details class="series-box">
+      <summary><b>{{ page.series }} 연재</b><span aria-hidden="true">·</span>이 시리즈의 다른 편 {{ _parts.size | minus: 1 }}</summary>
+      <ol>
+        {% for part in _parts %}
+          <li>
+            {% if part.url == page.url %}
+              <span class="series-current" aria-current="page">{{ part.title }}</span>
+            {% else %}
+              <a href="{{ part.url | relative_url }}">{{ part.title }}</a>
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ol>
+    </details>
+  {% endif %}
+{% endif %}

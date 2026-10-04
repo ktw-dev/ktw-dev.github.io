@@ -46,6 +46,7 @@
   --diagram-plate: #f4f6f4;
   --mark-bg: #7fb89d;
   --mark-ink: #0f1a14;
+  --img-brightness: 0.92; /* 다크에서 흰 스크린샷이 튀지 않게 (PRD 5-6) */
 
   /* Elevation: 다크에서는 그림자 대신 밝기와 테두리로 높이를 표현한다 */
   --shadow-bar: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 2px 8px rgba(0, 0, 0, 0.35);
@@ -228,7 +229,7 @@
   .highlight,
   .highlight .w {
     color: #d0d0d0;
-    background-color: #151515;
+    background-color: var(--code-bg);
   }
 
   .highlight .err {
@@ -275,7 +276,6 @@
 
   .highlight .gh {
     color: #6a9fb5;
-    background-color: #151515;
     font-weight: bold;
   }
 

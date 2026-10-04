@@ -1,34 +1,44 @@
-<!-- Navigation buttons at the bottom of the post. -->
+<!--
+  Previous / next at the end of a post.
+  Series posts follow the series order; other posts follow the date.
+-->
+{% assign _prev = nil %}
+{% assign _next = nil %}
 
-<nav class="post-navigation d-flex justify-content-between" aria-label="Post Navigation">
-  {% assign previous = site.data.locales[include.lang].post.button.previous %}
-  {% assign next = site.data.locales[include.lang].post.button.next %}
+{% if page.series %}
+  {% assign _parts = site.posts | where: 'series', page.series | sort: 'series_order' %}
+  {% for part in _parts %}
+    {% if part.url == page.url %}
+      {% assign _i = forloop.index0 %}
+    {% endif %}
+  {% endfor %}
+  {% assign _pi = _i | minus: 1 %}
+  {% assign _ni = _i | plus: 1 %}
+  {% assign _last = _parts.size | minus: 1 %}
+  {% if _i > 0 %}{% assign _prev = _parts[_pi] %}{% endif %}
+  {% if _i < _last %}{% assign _next = _parts[_ni] %}{% endif %}
+  {% assign _prev_label = '이전 편' %}
+  {% assign _next_label = '다음 편' %}
+{% else %}
+  {% assign _prev = page.previous %}
+  {% assign _next = page.next %}
+  {% assign _prev_label = '이전 글' %}
+  {% assign _next_label = '다음 글' %}
+{% endif %}
 
-  {% if page.previous.url %}
-    <a
-      href="{{ site.baseurl }}{{ page.previous.url }}"
-      class="btn btn-outline-primary"
-      aria-label="{{ previous }}"
-    >
-      <p>{{ page.previous.title }}</p>
-    </a>
-  {% else %}
-    <div class="btn btn-outline-primary disabled" aria-label="{{ previous }}">
-      <p>-</p>
-    </div>
-  {% endif %}
-
-  {% if page.next.url %}
-    <a
-      href="{{ site.baseurl }}{{page.next.url}}"
-      class="btn btn-outline-primary"
-      aria-label="{{ next }}"
-    >
-      <p>{{ page.next.title }}</p>
-    </a>
-  {% else %}
-    <div class="btn btn-outline-primary disabled" aria-label="{{ next }}">
-      <p>-</p>
-    </div>
-  {% endif %}
-</nav>
+{% if _prev or _next %}
+  <nav class="post-nav" aria-label="이전 글과 다음 글">
+    {% if _prev %}
+      <a class="post-nav-link prev" href="{{ _prev.url | relative_url }}">
+        <span class="post-nav-label">← {{ _prev_label }}</span>
+        <span class="post-nav-title">{{ _prev.title }}</span>
+      </a>
+    {% endif %}
+    {% if _next %}
+      <a class="post-nav-link next" href="{{ _next.url | relative_url }}">
+        <span class="post-nav-label">{{ _next_label }} →</span>
+        <span class="post-nav-title">{{ _next.title }}</span>
+      </a>
+    {% endif %}
+  </nav>
+{% endif %}

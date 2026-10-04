@@ -1,0 +1,158 @@
+/* =========================================================
+   기록 page (categories · tags · archives in one timeline)
+   (claude-md/ui-components.md 「통합 글 목록 '기록'」, ui-style-prd.md 7-4, 7-5)
+   The axis filter needs no JS: each chip links to an empty anchor
+   (#all, #ai-tools …) and :target decides what is shown. The per-axis
+   show/hide rules are generated from _data/axes.yml in _layouts/archives.html.
+   ========================================================= */
+
+.rec-target {
+  display: block;
+  scroll-margin-top: 100vh; /* keep the page from jumping to the anchor */
+}
+
+.rec-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0 0 var(--space-3);
+}
+
+.chip-filter {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  height: 36px;
+  padding: 0 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  color: var(--ink-3);
+  font-size: 14px;
+  text-decoration: none;
+  transition: background-color var(--dur-fast) ease;
+
+  sup {
+    top: -0.4em;
+    color: var(--ink-4);
+    font-size: 11px;
+  }
+
+  &:hover {
+    background-color: var(--surface-hover);
+    color: var(--ink-1);
+  }
+
+  @media (max-width: 849px) {
+    height: 44px;
+  }
+}
+
+%chip-selected {
+  border-color: var(--accent-tint);
+  background-color: var(--accent-tint);
+  color: var(--ink-1);
+  font-weight: 600;
+}
+
+/* 전체 is selected when no axis anchor is targeted */
+.rec:not(:has(.rec-target:target)) .chip-filter[href='#all'],
+.rec:has(#all:target) .chip-filter[href='#all'] {
+  @extend %chip-selected;
+}
+
+.rec-intro {
+  display: none;
+  margin: 0 0 var(--space-5);
+  color: var(--ink-3);
+  font-size: 15px;
+}
+
+.rec-year {
+  margin-top: var(--space-6);
+
+  h2 {
+    margin: 0 0 var(--space-2);
+    color: var(--ink-1);
+    font-size: 1.3125rem;
+    font-weight: 600;
+
+    sup {
+      margin-left: 2px;
+      color: var(--ink-4);
+      font-size: 11px;
+      font-weight: 400;
+    }
+  }
+}
+
+.rec-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: 3.5rem 1fr;
+  gap: 0 12px;
+  margin: 0 calc(var(--space-3) * -1);
+  padding: 14px var(--space-3);
+  border-top: 1px solid var(--line);
+  border-radius: var(--radius-m);
+  transition: background-color var(--dur-fast) ease;
+
+  &:hover {
+    background-color: var(--surface-hover);
+  }
+
+  &:hover + .rec-row {
+    border-top-color: transparent;
+  }
+}
+
+.rec-date {
+  padding-top: 2px;
+  color: var(--ink-4);
+  font-family: var(--font-mono);
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+.rec-title {
+  color: var(--ink-1);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.45;
+  text-decoration: none;
+  word-break: keep-all;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+  }
+}
+
+.rec-row:hover .rec-title {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+
+.rec-row .meta {
+  margin-top: 2px;
+}
+
+.rec-tags {
+  margin-top: var(--space-7);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--line);
+
+  h2 {
+    margin: 0 0 var(--space-2);
+    color: var(--ink-3);
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  div {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 12px;
+  }
+}
